@@ -1,4 +1,10 @@
-framework
-=========
+lolmvc: Simply Powerful
+=======================
 
-Learn or Light MVC is a learn-by-doing PHP 5.4+ MVC framework, but it's also a great light framework for any new project.
+lolmvc, is meant to be a framework you can wrap your mind around.
+It's primary purpose is to facilitate learning MVC by doing,
+but could also make a nice base framework for a real app.
+
+**Requirements: A web-server running PHP 5.4+**
+
+*MIT Licensed*
