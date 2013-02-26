@@ -1,0 +1,79 @@
+{
+	"name": "lolmvc/framework",
+	"description": "lolmvc: Simply Powerful",
+	"keywords": ["framework","lol","mvc","exegesis","learn","light"],
+	"homepage": "http://lolmvc.com",
+	"license": "MIT",
+	"version": "1.0.0-dev",
+	"support": {
+		"email": "benefactors@lolmvc.com",
+		"issues": "https://github.com/lolmvc/framework/issues",
+		"wiki": "https://github.com/lolmvc/framework/wiki",
+		"irc": "irc://irc.freenode.net/#lolmvc",
+		"source": "https://github.com/lolmvc/framework/archive/master.zip"
+	},
+	"authors": [
+		{
+			"name": "mitzip",
+			"email": "mitzip@lolmvc.com",
+			"homepage": "http://mitzip.com",
+			"role": "Lead"
+		},
+		{
+			"name": "Matthew Wallace",
+			"email": "matt@lolmvc.com",
+			"homepage": "http://mattwallace.us",
+			"role": "Developer"
+		},
+		{	"name": "Jose Antonio Martinez",
+			"email" "antonio@lolmvc.com",
+			"homepage": "http://blog.antoniomtz.org",
+			"role": "Developer"
+		},
+		{
+			"name": "lolmvc Community",
+			"email": "benefactors@lolmvc.com",
+			"homepage": "http://lolmvc.com/contributors",
+		}
+	],
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/MattRWallace/Exegesis",
+			"vendor-alias": "matt"
+		}
+	],
+	"require": {
+		"php": ">=5.4.6",
+		"ext-pcre": "*",
+		"ext-ctype": "*",
+		"ext-json": "*",
+		"ext-Reflection": "*",
+		"ext-SPL": "*",
+		"matt/exegesis": "dev-master",
+	},
+	"require-dev": {
+		"phpunit/phpunit": "dev-master",
+	},
+	"suggest": {
+		"monolog/monolog": "Allows more advanced logging of the application flow",
+		"hautelook/phpass": "Proper hashing of passwords for DB storage",
+		"leafo/lessphp": "Compiles less to css server-side",
+		"dflydev/markdown": "Compiles markdown to html server-side",
+		"ezyang/htmlpurifier": "Sanitize your input for output",
+		"swiftmailer/swiftmailer": "Send email from php with ease",
+		"kriswallsmith/assetic": "Filter and manage your app's assets",
+		"mustache/mustache": "PHP port of popular ruby templating engine",
+		"twitter/bootstrap": "Ready-made front end for your site",
+		"imagine/Imagine": "Image manipulation for all",
+		"phing/phing": "PH Is Not Gnu make is GNU Make for your php app",
+		"facebook/php-sdk": "Talk to facebook",
+		"opauth/opauth": "Authenticate with all the popular accounts",
+		"amazonwebservices/aws-sdk-for-php": "Talk to facebook",
+		"willdurand/geocoder": "Figure out where stuff is in the real world",
+		"egeloen/google-map": "Google map API access",
+		"google/adwords": "Google adwords API access",
+		"sonata-project/google-authenticator": "Google lib for two-factor auth",
+		"sorien/google-api": "General Google API for their other products, G+"
+	},
+}
