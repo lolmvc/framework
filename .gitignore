@@ -1,0 +1,11 @@
+/*
+!.gitignore
+!lolmvc/
+!test/
+!doc/
+!skel/
+!config.example.php
+!composer.json
+!README.md
+!LICENSE
+!logo.svg

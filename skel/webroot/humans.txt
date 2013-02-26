@@ -1,0 +1,17 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+
+/* TEAM */
+	<your title>: <your name>
+	Site:
+	Twitter:
+	Location:
+
+/* THANKS */
+	Names (& URL):
+	
+/* SITE */
+	Last update: YYYY/MM/DD
+	Standards: HTML5, CSS3, PHP-FIG...
+	Components: lolmvc, jQuery, LESS, Markdown, etc.
+	Software: Software used for the development
