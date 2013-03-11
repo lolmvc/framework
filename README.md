@@ -55,3 +55,4 @@ and follow the code below.
 	cp skel myapp
 
 *For more information, please see the documentation under /doc.*
+
