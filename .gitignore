@@ -1,11 +1,3 @@
-/*
-!.gitignore
-!lolmvc/
-!test/
-!doc/
-!skel/
-!config.example.php
-!composer.json
-!README.md
-!LICENSE
-!logo.svg
+*.swp     # vim swap files
+*.*~      # vim undo files
+.*.*~     # hidden vim undo files
