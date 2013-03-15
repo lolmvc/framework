@@ -39,11 +39,18 @@ class App {
         * Initialize the built-in PHP class autoloader.
          */
         // TODO: remove the include path modification when autoloader is done
-        set_include_path(get_include_path() . PATH_SEPARATOR . realpath('../../') . PATH_SEPARATOR . realpath('../../vendor'));
-        spl_autoload_extensions('.php');
-        spl_autoload_register();
-
+        //set_include_path(get_include_path() . PATH_SEPARATOR . realpath('../../') . PATH_SEPARATOR . realpath('../../vendor'));
+        //spl_autoload_extensions('.php');
+        //spl_autoload_register();
+        require 'service/autoloader.php';
+        $lolmvcLoader = new Service\Autoloader('Lolmvc','../..');
+        $lolmvcLoader->register();
+        $appLoader = new Service\Autoloader($this->appName,"../..");
+        $appLoader->register();
+        $vendorLoader = new Service\Autoloader('MattRWallace','../../vendor');
+        $vendorLoader->register();
         // load configuration values
+        require '../../config.php';
         new \Config();
     }
 

@@ -1,4 +1,5 @@
 <?php
+namespace Lolmvc\Service;
 
 /**
  * Autoloader implements the PHP Framework Interoperability Group's
@@ -135,8 +136,7 @@ class Autoloader
         $isFound = false;
         $nsPrefix = $this->namespace.$this->namespaceSeparator;
 
-        if ($this->namespace === null || $nsPrefix === substr($className, 0, strlen($nsPrefix)+1)) {
-
+        if ($this->namespace === null || $nsPrefix === substr($className, 0, strlen($nsPrefix))) {
             $fileName = $this->resolveFileName($className);
 
             $includePaths = $this->includePaths ?: array('.');
@@ -161,7 +161,9 @@ class Autoloader
      */
     private function tryLoadClassByPath($className, $unresolvedFilePath)
     {
-        $filePath = stream_resolve_include_path($unresolvedFilePath);
+        $verbatim = stream_resolve_include_path($unresolvedFilePath);
+        $lowercase = stream_resolve_include_path(strtolower($unresolvedFilePath));
+        $filePath = $verbatim ?: $lowercase;
         $isFound  = ($filePath !== false);
         if ($isFound) {
             include $filePath;
@@ -184,9 +186,9 @@ class Autoloader
         if (($lastNsPos = strripos($className, $this->namespaceSeparator)) !== false) {
             $namespace = substr($className, 0, $lastNsPos);
             $className = substr($className, $lastNsPos + 1);
-            $fileName  = strtr($namespace,[$this->namespaceSeparator, DIRECTORY_SEPARATOR]) . DIRECTORY_SEPARATOR;
+            $fileName  = strtr($namespace,[$this->namespaceSeparator => DIRECTORY_SEPARATOR]) . DIRECTORY_SEPARATOR;
         }
-        $fileName .= strtr($classname, ['_', DIRECTORY_SEPARATOR]) . $this->fileExtension;
+        $fileName .= strtr($className, ['_' => DIRECTORY_SEPARATOR]) . $this->fileExtension;
 
         return $fileName;
     }

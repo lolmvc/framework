@@ -1,7 +1,7 @@
 <?php
 
 // have to include the basic app class
-require_once("/home/matt/Documents/Web/lolmvc/framework/lolmvc/app.php");
+require_once("../../lolmvc/app.php");
 
 /********************************
  * create a new lolmvc based app
