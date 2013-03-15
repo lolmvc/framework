@@ -2,7 +2,7 @@
 
 /**
 * Defines constants that need to be accessible throughout the
-* application
+* framework.
 *
 * @author Mitzip <mitzip@lolmvc.com>
 * @package MVC

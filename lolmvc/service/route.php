@@ -52,7 +52,7 @@ class Route {
 		$parsedURI = explode('/', $uri);
 
 		// grab requested controller name, if blank then use the default (if any)
-		$controller      = empty($parsedURI[0]) ? DEFAULT_CONTROLLER : ucfirst($parsedURI[0]);
+        $controller      = empty($parsedURI[0]) ? ucfirst(DEFAULT_CONTROLLER) : ucfirst($parsedURI[0]);
         $controllerClass = "\\$appName\\Controller\\$controller";
 
 		// get the action or ''
