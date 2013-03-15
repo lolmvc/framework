@@ -42,15 +42,18 @@ class App {
         //set_include_path(get_include_path() . PATH_SEPARATOR . realpath('../../') . PATH_SEPARATOR . realpath('../../vendor'));
         //spl_autoload_extensions('.php');
         //spl_autoload_register();
+        $frameworkBase = '../..';
         require 'service/autoloader.php';
-        $lolmvcLoader = new Service\Autoloader('Lolmvc','../..');
+        $baseLoader = new Service\Autoloader('',$frameworkBase.'/');
+        $baseLoader->register();
+        $lolmvcLoader = new Service\Autoloader('Lolmvc',$frameworkBase);
         $lolmvcLoader->register();
-        $appLoader = new Service\Autoloader($this->appName,"../..");
+        $appLoader = new Service\Autoloader($this->appName,$frameworkBase);
         $appLoader->register();
-        $vendorLoader = new Service\Autoloader('MattRWallace','../../vendor');
+        $vendorLoader = new Service\Autoloader('MattRWallace',$frameworkBase.'/vendor/');
         $vendorLoader->register();
         // load configuration values
-        require '../../config.php';
+        //require '../../config.php';
         new \Config();
     }
 

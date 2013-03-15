@@ -134,19 +134,25 @@ class Autoloader
     public function loadClass($className)
     {
         $isFound = false;
-        $nsPrefix = $this->namespace.$this->namespaceSeparator;
+        $nsPrefix = $this->namespace;//.$this->namespaceSeparator;
 
         if ($this->namespace === null || $nsPrefix === substr($className, 0, strlen($nsPrefix))) {
             $fileName = $this->resolveFileName($className);
 
             $includePaths = $this->includePaths ?: array('.');
             foreach ($includePaths as $includePath) {
-                $unresolvedFilePath = $includePath . DIRECTORY_SEPARATOR . $fileName;
+                $unresolvedFilePath = $includePath . /*DIRECTORY_SEPARATOR .*/ $fileName;
+                echo "unresolved = " .$unresolvedFilePath."<br />";
                 $isFound = $this->tryLoadClassByPath($className, $unresolvedFilePath);
                 if ($isFound) {
                     break;
                 }
             }
+        } else {
+            echo "<pre>";
+            echo "nsPrefix: " . $nsPrefix . "\n";
+            echo "substr = " . substr($className, 0, strlen($nsPrefix)) . "\n";
+            echo "</pre>";
         }
 
         return $isFound;
