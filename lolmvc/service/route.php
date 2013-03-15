@@ -1,5 +1,5 @@
 <?php
-namespace Service;
+namespace Lolmvc\Service;
 
 /**
  * Determines which controller is requested in the URI and creates an
@@ -40,7 +40,16 @@ class Route {
 	 * @access public
 	 * @return void
 	 */
-	public function __construct($uri, $appName) {
+    public function __construct($uri, $appName) {
+
+        // get the error404 classname
+        if (CUSTOM_404) {
+            $error404Controller = "\\$appName\\Controller\\".CUSTOM_404;
+            $error404Namespace = $appName;
+        } else {
+            $error404Controller = "\\Lolmvc\\Controller\\Error404";
+            $error404Namespace = "Lolmvc";
+        }
 
 		/* =============================
 		 *  Find the correct controller
@@ -63,8 +72,8 @@ class Route {
 		try {
 			if (class_exists($controllerClass))  {}
 		} catch (\LogicException $e) {
-			$action = new \ReflectionMethod("\\Controller\\Error404", "error");
-			$this->controllerObject = new \Controller\Error404($action, ['Controller class does not exist']);
+			$action = new \ReflectionMethod("\\Lolmvc\\Controller\\Error404", "error");
+			$this->controllerObject = new $error404Controller($error404Namespace, $action, ['Controller class does not exist']);
 			return;
 		}
 
@@ -96,8 +105,8 @@ class Route {
 
 		// Invalid action and no default, switch to Error404
 		if (is_string($action)) {
-			$action = new \ReflectionMethod("\\Controller\\Error404", "error");
-			$this->controllerObject = new \Controller\Error404($action, ['Invalid action with no default']);
+			$action = new \ReflectionMethod("\\Lolmvc\\Controller\\Error404", "error");
+			$this->controllerObject = new $error404Controller($error404Namespace, $action, ['Invalid action with no default']);
 			return;
 		}
 
@@ -112,8 +121,8 @@ class Route {
 
 		// if there are no argument lists then bail
 		if (!isset($argLists)) {
-			$action = new \ReflectionMethod("\\Controller\\Error404", "error");
-			$this->controllerObject = new \Controller\Error404($action, ['No argument lists specified']);
+			$action = new \ReflectionMethod("\\Lolmvc\\Controller\\Error404", "error");
+			$this->controllerObject = new $error404Controller($error404Namespace, $action, ['No argument lists specified']);
 			return;
 		}
 
@@ -137,8 +146,8 @@ class Route {
 
 		// no match
 		if (!is_array($parameters)) {
-			$action = new \ReflectionMethod("\\Controller\\Error404", "error");
-			$this->controllerObject = new \Controller\Error404($action, ['No argument lists matched the provided arguments']);
+			$action = new \ReflectionMethod("\\Lolmvc\\Controller\\Error404", "error");
+			$this->controllerObject = new $error404Controller($error404Namespace, $action, ['No argument lists matched the provided arguments']);
 			return;
 		}
 
@@ -148,10 +157,10 @@ class Route {
 		 * ======================= */
 
 		try {
-			$this->controllerObject = new $controllerClass($action, $parameters);
-		} catch (\Service\PageNotFoundException $e) {
-			$action = new \ReflectionMethod("\\Controller\\Error404", "error");
-			$this->controllerObject = new \Controller\Error404($action, ['Failed to create the controller']);
+			$this->controllerObject = new $controllerClass($appname, $action, $parameters);
+		} catch (\Lolmvc\Service\PageNotFoundException $e) {
+			$action = new \ReflectionMethod("\\Lolmvc\\Controller\\Error404", "error");
+			$this->controllerObject = new $error404Controller($error404Namespace, $action, ['Failed to create the controller']);
 		}
 	}
 
