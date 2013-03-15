@@ -17,9 +17,9 @@ namespace Lolmvc\Service;
  * @author	Matt Wallace <matt@lolmvc.com>
  * @author  Chad Emrys Minick
  * @link http://codeangel.org/articles/simple-php-template-engine.html
- * @package Lolmvc
+ * @package MVC
  */
-class Template {
+class Template implements \Lolmvc\View\View {
 	/**
 	 * Array containing "name" => value pairs for variables that will be used
 	 * by the views/layouts.
@@ -27,12 +27,16 @@ class Template {
 	 * @var array
 	 * @access private
 	 */
-	private $vars = array();			// Array that holds the values needed by the views
+    private $vars = array();			// Array that holds the values needed by the views
+    private $viewName;
+    private $layoutName;
+    private $controllerName;
+    private $appName;
 
-	private $controllerName;
-
-	public function __construct($controllerName) {
-		$this->controllerName = $controllerName;
+	public function __construct($appName, $controllerName) {
+        $this->controllerName = $controllerName;
+        $this->appName = $appName;
+        $this->vars['js'] = array();
 	}
 
 	/**
@@ -43,7 +47,12 @@ class Template {
 	 * @access public
 	 * @return mixed
 	 */
-	public function &__get($name) {
+    public function &__get($name) {
+        if ($name == 'viewName')
+            return $this->viewName;
+        if ($name == 'layoutName')
+            return $this->layoutName;
+
 		return $this->vars[$name];
 	}
 
@@ -56,12 +65,21 @@ class Template {
 	 * @return void
 	 */
 	public function __set($name, $value) {
-		if ($name == 'viewName'   ||
-			$name == 'layoutName' ||
-			$name == 'content'
-		) trigger_error("template.php: Cannot bind variable", E_USER_ERROR);
+		if ($name == 'content')
+            trigger_error("template.php: Cannot use the variable 'content'", E_USER_ERROR);
 
-		$this->vars[$name] = $value;
+        // catch the viewName
+        if ($name == 'viewName')
+            $this->viewName = $value;
+
+        if ($name == 'layoutName')
+            $this->layoutName = $value;
+
+        // if javascript then push onto vars['js']
+        if ($name == 'js')
+            array_push($this->vars['js'], $value);
+        else
+            $this->vars[$name] = $value;
 	}
 
 	/**
@@ -72,25 +90,30 @@ class Template {
 	 * @access public
 	 * @return void
 	 */
-    public function render($viewName, $layoutName) {
-		if (array_key_exists('viewName'  , $this->vars) ||
-			array_key_exists('layoutName', $this->vars) ||
-			array_key_exists('content'   , $this->vars)
-		) trigger_error("template.php: Cannot bind variable", E_USER_ERROR);
+    public function renderPage() {
 
-		extract($this->vars);
+        // change the working directory
+        $oldcwd = getcwd();
+        chdir(TEMPLATE_BASE);
 
+        if (empty($this->viewName))
+            trigger_error('No view name was set!', E_USER_ERROR);
+        if (empty($this->layoutName))
+            trigger_error('no layout name was set!', E_USER_ERROR);
+
+        extract($this->vars);
+
+        // Run through the view
         ob_start();
-        if ($this->view != 'error404')
-            include("view/$this->controllerName/$viewName.php");
-        else {
-            include("view/$viewName.php");
-        }
-
+        include("$this->appName/view/$this->controllerName/$this->viewName.php");
         $content = ob_get_clean();
 
+        // Wrap with the layout
         ob_start();
-        include("layout/$layoutName.php");
-        return ob_get_clean();
-	}
+        include("$this->appName/layout/$this->layoutName.php");
+
+        echo ob_get_clean();
+
+        chdir($oldcwd);
+    }
 }

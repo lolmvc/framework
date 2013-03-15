@@ -37,13 +37,11 @@ class App {
 
         /**
         * Initialize the built-in PHP class autoloader.
-        */
-        set_include_path(get_include_path() . PATH_SEPARATOR . realpath('../../'));
+         */
+        // TODO: remove the include path modification when autoloader is done
+        set_include_path(get_include_path() . PATH_SEPARATOR . realpath('../../') . PATH_SEPARATOR . realpath('../../vendor'));
         spl_autoload_extensions('.php');
         spl_autoload_register();
-
-        echo get_include_path()."<br />";
-        echo $this->appName;
 
         // load configuration values
         new \Config();
@@ -78,16 +76,21 @@ class App {
         // create the router, generate the page and display
         try {
             $router = new \Lolmvc\Service\Route($_SERVER['REQUEST_URI'], $this->appName);
-        } catch (\Lolmvc\Service\PageNotFoundException $e) {
-            $message = $e->getMessage();
+		} catch (\Lolmvc\Service\PageNotFoundException $e) {
+			// get the error404 classname
+			if (CUSTOM_404)
+				$error404namespace = $appname;
+			else
+                $error404namespace = "lolmvc";
+
             $request = "error404";
+            $message = $e->getMessage();
             if (!empty($message))
-            $request .= "/$message/";
-            $router = new \Lolmvc\Service\Route($request, $this->appName);
+				$request .= "/$message/";
+            $router = new \Lolmvc\Service\Route($request, $error404namespace);
         }
 
         $controller = $router->getController();
-        $controller->loadView();
         $controller->renderPage();
     }
 
@@ -115,8 +118,5 @@ class App {
             error_reporting(E_ALL & ~E_NOTICE);
             ini_set('display_errors', '1');
         }
-
-        // set our working directory
-        chdir(FRAMEWORK);
     }
 }
