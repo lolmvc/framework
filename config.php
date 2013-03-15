@@ -26,12 +26,10 @@ class Config {
         /* ==============================
          * Debug flag (true/false)
          * ============================== */
-
         define('DEBUG', false);
 
-        /* ==============================
-         * Location of the framework root
-         * ============================== */
-        define('FRAMEWORK_ROOT', '/var/www/');
+        define('CUSTOM_404', false);
+
+        define('FRAMEWORK', realpath(dirname(__FILE__)));
     }
 }
