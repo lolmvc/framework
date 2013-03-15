@@ -10,5 +10,5 @@ namespace Lolmvc\Model;
  * @pckage MVC\Model
  *
  */
-class Error404 extends Model {
+class Error404 extends BaseModel {
 }

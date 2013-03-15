@@ -12,7 +12,7 @@ $skel = new \Lolmvc\App('skel');
  * set any optional configuration
  *******************************/
 // set flag that a local config should be loaded
-//$skel->useLocalConfig();
+$skel->useLocalConfig();
 
 /********************************
  * run the app

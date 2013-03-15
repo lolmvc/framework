@@ -14,7 +14,7 @@ namespace Lolmvc\Controller;
  * @author  Matt Wallace <matt@lolmvc.com>
  * @package Lolmvc\Controller
  */
-abstract class Controller {
+abstract class BaseController {
 
 	/**
 	 * The model object providing API that accesses the Database
@@ -41,7 +41,7 @@ abstract class Controller {
 	 */
 	public function __construct($appName, $classShortName) {
 		// get the model
-		$modelName = "\\$appName\\Model\\$classShortName";
+		$modelName = "\\$appName\\Model\\" . ucfirst($classShortName);
 		$this->model = new $modelName();
     }
 
