@@ -74,6 +74,7 @@
 		"egeloen/google-map": "Google map API access",
 		"google/adwords": "Google adwords API access",
 		"sonata-project/google-authenticator": "Google lib for two-factor auth",
-		"sorien/google-api": "General Google API for their other products, G+"
+		"sorien/google-api": "General Google API for their other products, G+",
+		"firephp/firephp-core": "Allows logging from php code to browser console"
 	},
 }
