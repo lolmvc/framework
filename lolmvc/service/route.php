@@ -10,7 +10,7 @@ namespace Lolmvc\Service;
  * Example:
  *
  * <code>
- * $router = new \Assets\Router($_SERVER['REQUEST_URI'], $appName);
+ * $router = new \Assets\Router($_SERVER['REQUEST_URI']);
  *
  * if ($controller = $router.getController()) {
  *    // utilize controller functionality
@@ -40,16 +40,7 @@ class Route {
 	 * @access public
 	 * @return void
 	 */
-    public function __construct($uri, $appName) {
-
-        // get the error404 classname
-        if (CUSTOM_404) {
-            $error404Controller = "\\$appName\\Controller\\".CUSTOM_404;
-            $error404Namespace = $appName;
-        } else {
-            $error404Controller = "\\Lolmvc\\Controller\\Error404";
-            $error404Namespace = "Lolmvc";
-        }
+	public function __construct($uri, $appName) {
 
 		/* =============================
 		 *  Find the correct controller
@@ -62,7 +53,7 @@ class Route {
 
 		// grab requested controller name, if blank then use the default (if any)
 		$controller      = empty($parsedURI[0]) ? DEFAULT_CONTROLLER : ucfirst($parsedURI[0]);
-		$controllerClass = "\\$appName\\$controller";
+        $controllerClass = "\\$appName\\Controller\\$controller";
 
 		// get the action or ''
 		$action = isset($parsedURI[1]) ? $parsedURI[1] : '';
@@ -71,10 +62,8 @@ class Route {
 		// Check if the controller is valid
 		try {
 			if (class_exists($controllerClass))  {}
-		} catch (\LogicException $e) {
-			$action = new \ReflectionMethod("\\Lolmvc\\Controller\\Error404", "error");
-			$this->controllerObject = new $error404Controller($error404Namespace, $action, ['Controller class does not exist']);
-			return;
+        } catch (\LogicException $e) {
+			throw new PageNotFoundException("Controller class does not exist (".$e->getMessage().")");
 		}
 
 
@@ -83,10 +72,10 @@ class Route {
 		 * ============================================= */
 
 		// set the parser to ignore phpdoc annotations
-		\Exegesis\AnnotationParser::setBlacklist(\Exegesis\AnnotationParser::PHPDOC);
+		\MattRWallace\Exegesis\AnnotationParser::setBlacklist(\MattRWallace\Exegesis\AnnotationParser::PHPDOC);
 
 		// create the AnnotationClass for the controller and get the actions
-		$annotationClass = new \Exegesis\AnnotationClass($controllerClass);
+		$annotationClass = new \MattRWallace\Exegesis\AnnotationClass($controllerClass);
 		$actions = $this->getActions($annotationClass);
 
 		// if the action is in the list then set its name and get args
@@ -104,11 +93,11 @@ class Route {
 		}
 
 		// Invalid action and no default, switch to Error404
-		if (is_string($action)) {
-			$action = new \ReflectionMethod("\\Lolmvc\\Controller\\Error404", "error");
-			$this->controllerObject = new $error404Controller($error404Namespace, $action, ['Invalid action with no default']);
-			return;
+		//if (is_string($action)) {
+		if (!is_object($action)) {
+			throw new PageNotFoundException("Invalid action with no default");
 		}
+
 
 		/* =====================
 		 *  Map names to values
@@ -121,9 +110,7 @@ class Route {
 
 		// if there are no argument lists then bail
 		if (!isset($argLists)) {
-			$action = new \ReflectionMethod("\\Lolmvc\\Controller\\Error404", "error");
-			$this->controllerObject = new $error404Controller($error404Namespace, $action, ['No argument lists specified']);
-			return;
+			throw new PageNotFoundException("No argument lists specified");
 		}
 
 		foreach ($argLists as $arglist) {
@@ -146,9 +133,7 @@ class Route {
 
 		// no match
 		if (!is_array($parameters)) {
-			$action = new \ReflectionMethod("\\Lolmvc\\Controller\\Error404", "error");
-			$this->controllerObject = new $error404Controller($error404Namespace, $action, ['No argument lists matched the provided arguments']);
-			return;
+			throw new PageNotFoundException("No argument lists matched the provided arguments");
 		}
 
 
@@ -157,10 +142,9 @@ class Route {
 		 * ======================= */
 
 		try {
-			$this->controllerObject = new $controllerClass($appname, $action, $parameters);
-		} catch (\Lolmvc\Service\PageNotFoundException $e) {
-			$action = new \ReflectionMethod("\\Lolmvc\\Controller\\Error404", "error");
-			$this->controllerObject = new $error404Controller($error404Namespace, $action, ['Failed to create the controller']);
+			$this->controllerObject = new $controllerClass($appName, $action->getName(), $parameters);
+		} catch (PageNotFoundException $e) {
+			throw new PageNotFoundException("Failed to create the controller (".$e->getMessage().")");
 		}
 	}
 
@@ -182,10 +166,10 @@ class Route {
 		try {
 			$action = $annotationClass->getMethod($action);
 		} catch (\ReflectionException $e) {
-			return null;
+			return '';
 		}
 
-		return new \Exegesis\AnnotationMethod($annotationClass->getName(), $action->getName());
+		return new \MattRWallace\Exegesis\AnnotationMethod($annotationClass->getName(), $action->getName());
 	}
 
 	/**

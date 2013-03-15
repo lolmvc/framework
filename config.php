@@ -30,6 +30,6 @@ class Config {
 
         define('CUSTOM_404', false);
 
-        define('FRAMEWORK', realpath(dirname(__FILE__)));
+        define('TEMPLATE_BASE', realpath(dirname(__FILE__)));
     }
 }

@@ -7,17 +7,24 @@ namespace Lolmvc\Controller;
  *
  * @uses Controller
  * @author Matt Wallace <matt@lolmvc.com>
- * @package lolmvc\Controller
+ * @package Lolmvc\Controller
  * @defaultAction error
  */
 class Error404 extends Controller {
-    public function __construct($appname, $action, $args) {
-        parent::__construct($appname, $action, $args);
-        // set the layout
-        $this->setLayout('main');
+    public function __construct($appName, $action, $args) {
+        // get the class name
+        $className = explode('\\', strtolower(get_class($this)));
+        $this->classShortName = end($className);
 
-        //execute the action
-        $this->invokeAction($this);
+        parent::__construct($appName, $this->classShortName);
+
+        // create the view
+        $this->view = new \Lolmvc\Service\Template($appName, $this->classShortName);
+        $this->view->layoutName = "main";
+
+        $this->controllerName = $this->classShortName;
+
+        $this->$action($args);
     }
 
     /**
@@ -25,7 +32,7 @@ class Error404 extends Controller {
      * error to the user.
      *
      * @param array $args
-     * @access private
+     * @access public
      * @return void
      * @action
      * @args []
@@ -33,11 +40,11 @@ class Error404 extends Controller {
      */
     public function error($args) {
         // set the view
-        $this->setView('error404');
-        $this->addViewVar('title', 'Page Not Found');
+        $this->view->viewName = 'error404';
+        $this->view->title = 'Page Not Found';
 
-        if (DEBUG_ON && !empty($args))
-            $this->addViewVar('messages', $args);
+        if (DEBUG && !empty($args))
+            $this->view->messages = $args;
 
         // send the 404 header
         header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
