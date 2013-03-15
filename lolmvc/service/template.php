@@ -105,12 +105,12 @@ class Template implements \Lolmvc\View\View {
 
         // Run through the view
         ob_start();
-        include("$this->appName/view/$this->controllerName/$this->viewName.php");
+        include(lcfirst($this->appName)."/view/$this->controllerName/$this->viewName.php");
         $content = ob_get_clean();
 
         // Wrap with the layout
         ob_start();
-        include("$this->appName/layout/$this->layoutName.php");
+        include(lcfirst($this->appName)."/layout/$this->layoutName.php");
 
         echo ob_get_clean();
 

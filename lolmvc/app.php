@@ -33,7 +33,7 @@ class App {
      * @return void
      */
     function __construct($appName) {
-        $this->appName = $appName;
+        $this->appName = ucfirst($appName);
 
         /**
         * Initialize the built-in PHP class autoloader.

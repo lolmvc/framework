@@ -10,7 +10,7 @@ namespace Lolmvc\Controller;
  * @package Lolmvc\Controller
  * @defaultAction error
  */
-class Error404 extends Controller {
+class Error404 extends BaseController {
     public function __construct($appName, $action, $args) {
         // get the class name
         $className = explode('\\', strtolower(get_class($this)));
