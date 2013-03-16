@@ -21,7 +21,7 @@ abstract class BaseController {
 	/**
 	 * The model object providing API that accesses the Database.
 	 *
-	 * @var
+	 * @var Lolmvc\Model\BaseModel
 	 * @access protected
 	 */
     protected $model;
@@ -30,10 +30,18 @@ abstract class BaseController {
      * The view object that interfaces with the chosen view/templating
      * framework.
      *
-     * @var
+     * @var Lolmvc\View\BaseView
      * @access protected
      */
-    protected $view;
+	protected $view;
+
+	/**
+	 * classShortName
+	 *
+	 * @var string
+	 * @access protected
+	 */
+	protected $classShortName;
 
 	/**
 	 * Constructor
@@ -45,7 +53,10 @@ abstract class BaseController {
      *
 	 */
 	public function __construct($appName, $classShortName) {
-        // TODO: Move the classShortName computation to BaseController.
+        // get the class name
+        $className = explode('\\', strtolower(get_class($this)));
+		$this->classShortName = end($className);
+
 		// get the model
 		$modelName = "\\$appName\\Model\\" . ucfirst($classShortName);
 		$this->model = new $modelName();

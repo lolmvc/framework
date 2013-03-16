@@ -217,14 +217,14 @@ values have been imported.&lt;/p&gt;</long-description>
       <error line="0" code="50007">No page-level DocBlock was found in file lolmvc/app.php</error>
     </parse_markers>
   </file>
-  <file path="lolmvc/controller/error404.php" hash="e009e2853de70a53506cfbda89df9151" package="Default">
+  <file path="lolmvc/controller/error404.php" hash="43f1dde75b4f38baaa43a2e9b38cbcc7" package="Default">
     <class final="false" abstract="false" namespace="Lolmvc\Controller" line="13" package="Lolmvc\Controller">
       <extends>\Lolmvc\Controller\BaseController</extends>
       <name>Error404</name>
       <full_name>\Lolmvc\Controller\Error404</full_name>
       <docblock line="5">
         <description>Controller to display 404 errors</description>
-        <long-description/>
+        <long-description></long-description>
         <tag line="5" name="uses" description="\Lolmvc\Controller\Controller" refers="\Lolmvc\Controller\Controller"/>
         <tag line="5" name="author" description="Matt Wallace &lt;matt@lolmvc.com&gt;"/>
         <tag line="5" name="package" description="Lolmvc\Controller"/>
@@ -235,7 +235,7 @@ values have been imported.&lt;/p&gt;</long-description>
         <full_name>__construct</full_name>
         <docblock line="14">
           <description>Constructor</description>
-          <long-description/>
+          <long-description></long-description>
           <tag line="14" name="param" description="" type="string" variable="$appName">
             <type by_reference="false">string</type>
           </tag>
@@ -252,40 +252,40 @@ values have been imported.&lt;/p&gt;</long-description>
         </docblock>
         <argument line="23">
           <name>$appName</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
         <argument line="23">
           <name>$action</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
         <argument line="23">
           <name>$args</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Lolmvc\Controller" line="51" package="Lolmvc\Controller">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lolmvc\Controller" line="47" package="Lolmvc\Controller">
         <name>error</name>
         <full_name>error</full_name>
-        <docblock line="39">
+        <docblock line="35">
           <description>The only action for the Error404 controller.</description>
           <long-description>&lt;p&gt;Handles displaying the 404 error to the user.&lt;/p&gt;</long-description>
-          <tag line="39" name="param" description="" type="array" variable="$args">
+          <tag line="35" name="param" description="" type="array" variable="$args">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="39" name="access" description="public"/>
-          <tag line="39" name="return" description="" type="void">
+          <tag line="35" name="access" description="public"/>
+          <tag line="35" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
-          <tag line="39" name="action" description=""/>
-          <tag line="39" name="args" description="[]"/>
-          <tag line="39" name="args" description="[&quot;messages&quot;]"/>
+          <tag line="35" name="action" description=""/>
+          <tag line="35" name="args" description="[]"/>
+          <tag line="35" name="args" description="[&quot;messages&quot;]"/>
         </docblock>
-        <argument line="51">
+        <argument line="47">
           <name>$args</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
       </method>
@@ -294,7 +294,7 @@ values have been imported.&lt;/p&gt;</long-description>
       <error line="0" code="50007">No page-level DocBlock was found in file lolmvc/controller/error404.php</error>
     </parse_markers>
   </file>
-  <file path="lolmvc/controller/basecontroller.php" hash="8c9b6de9693b007b7ca891873bcf8829" package="Default">
+  <file path="lolmvc/controller/basecontroller.php" hash="5968426278424f4f290822c8caea76ad" package="Default">
     <class final="false" abstract="true" namespace="Lolmvc\Controller" line="19" package="Lolmvc\Controller">
       <extends/>
       <name>BaseController</name>
@@ -317,7 +317,9 @@ within your app.&lt;/p&gt;</long-description>
         <docblock line="21">
           <description>The model object providing API that accesses the Database.</description>
           <long-description></long-description>
-          <tag line="21" name="var" description="" type="\Lolmvc\Controller\"/>
+          <tag line="21" name="var" description="" type="\Lolmvc\Controller\Lolmvc\Model\BaseModel">
+            <type by_reference="false">\Lolmvc\Controller\Lolmvc\Model\BaseModel</type>
+          </tag>
           <tag line="21" name="access" description="protected"/>
         </docblock>
       </property>
@@ -328,55 +330,66 @@ within your app.&lt;/p&gt;</long-description>
           <description>The view object that interfaces with the chosen view/templating
 framework.</description>
           <long-description></long-description>
-          <tag line="29" name="var" description="" type="\Lolmvc\Controller\"/>
+          <tag line="29" name="var" description="" type="\Lolmvc\Controller\Lolmvc\View\BaseView">
+            <type by_reference="false">\Lolmvc\Controller\Lolmvc\View\BaseView</type>
+          </tag>
           <tag line="29" name="access" description="protected"/>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Lolmvc\Controller" line="47" package="Lolmvc\Controller">
+      <property final="false" static="false" visibility="protected" line="44" namespace="Lolmvc\Controller" package="Default">
+        <name>$classShortName</name>
+        <default></default>
+        <docblock line="38">
+          <description>classShortName</description>
+          <long-description></long-description>
+          <tag line="38" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="38" name="access" description="protected"/>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lolmvc\Controller" line="55" package="Lolmvc\Controller">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <docblock line="38">
+        <docblock line="46">
           <description>Constructor</description>
           <long-description></long-description>
-          <tag line="38" name="access" description="public"/>
-          <tag line="38" name="param" description="The application name." type="string" variable="$appName">
+          <tag line="46" name="access" description="public"/>
+          <tag line="46" name="param" description="The application name." type="string" variable="$appName">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="38" name="param" description="The non-fully-qualified class name." type="string" variable="$classShortName">
+          <tag line="46" name="param" description="The non-fully-qualified class name." type="string" variable="$classShortName">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="38" name="return" description="" type="void">
+          <tag line="46" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="47">
+        <argument line="55">
           <name>$appName</name>
           <default></default>
           <type/>
         </argument>
-        <argument line="47">
+        <argument line="55">
           <name>$classShortName</name>
           <default></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Lolmvc\Controller" line="61" package="Lolmvc\Controller">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lolmvc\Controller" line="72" package="Lolmvc\Controller">
         <name>renderPage</name>
         <full_name>renderPage</full_name>
-        <docblock line="54">
+        <docblock line="65">
           <description>Renders and echoes the HTML</description>
           <long-description></long-description>
-          <tag line="54" name="see" description="\Lolmvc\View\BaseView" refers="\Lolmvc\View\BaseView"/>
-          <tag line="54" name="access" description="public"/>
-          <tag line="54" name="return" description="" type="void">
+          <tag line="65" name="see" description="\Lolmvc\View\BaseView" refers="\Lolmvc\View\BaseView"/>
+          <tag line="65" name="access" description="public"/>
+          <tag line="65" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
       </method>
     </class>
-    <markers>
-      <todo line="48">Move the classShortName computation to BaseController.</todo>
-    </markers>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file lolmvc/controller/basecontroller.php</error>
     </parse_markers>
@@ -1042,70 +1055,58 @@ variables that have been added to the templating engine.</description>
       <name>../../lolmvc/app.php</name>
     </include>
   </file>
-  <file path="skel/controller/skelcontroller.php" hash="6ff1316aba8d9926ea719988e918b7b6" package="Default">
+  <file path="skel/controller/skelcontroller.php" hash="0845f0a24c04618306d477e5ed4990dc" package="Default">
     <class final="false" abstract="true" namespace="Skel\Controller" line="13" package="Skel\Controller">
       <extends>\Lolmvc\Controller\BaseController</extends>
       <name>SkelController</name>
       <full_name>\Skel\Controller\SkelController</full_name>
       <docblock line="5">
         <description>Application specific abstract controller for the Skel application</description>
-        <long-description/>
+        <long-description></long-description>
         <tag line="5" name="abstract" description=""/>
         <tag line="5" name="uses" description="\Lolmvc\Controller\BaseController" refers="\Lolmvc\Controller\BaseController"/>
         <tag line="5" name="author" description="Matt Wallace &lt;matt@lolmvc.com&gt;"/>
         <tag line="5" name="package" description="Skel\Controller"/>
       </docblock>
-      <property final="false" static="false" visibility="protected" line="20" namespace="Skel\Controller" package="Default">
-        <name>$classShortName</name>
-        <default/>
-        <docblock line="14">
-          <description>The name of the class</description>
-          <long-description/>
-          <tag line="14" name="var" description="" type="string">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag line="14" name="access" description="protected"/>
-        </docblock>
-      </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Skel\Controller" line="32" package="Skel\Controller">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Skel\Controller" line="25" package="Skel\Controller">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <docblock line="22">
+        <docblock line="15">
           <description>Constructor</description>
-          <long-description/>
-          <tag line="22" name="param" description="Name of the application" type="string" variable="$appName">
+          <long-description></long-description>
+          <tag line="15" name="param" description="Name of the application" type="string" variable="$appName">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="22" name="param" description="Name of the action" type="string" variable="$action">
+          <tag line="15" name="param" description="Name of the action" type="string" variable="$action">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="22" name="param" description="Array of the action arguments" type="array" variable="$args">
+          <tag line="15" name="param" description="Array of the action arguments" type="array" variable="$args">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="22" name="param" description="Layout name (default is &quot;main&quot;)" type="string" variable="$layout">
+          <tag line="15" name="param" description="Layout name (default is &quot;main&quot;)" type="string" variable="$layout">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="22" name="access" description="public"/>
-          <tag line="22" name="return" description="" type="void">
+          <tag line="15" name="access" description="public"/>
+          <tag line="15" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="32">
+        <argument line="25">
           <name>$appName</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
-        <argument line="32">
+        <argument line="25">
           <name>$action</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
-        <argument line="32">
+        <argument line="25">
           <name>$args</name>
-          <default/>
+          <default></default>
           <type/>
         </argument>
-        <argument line="32">
+        <argument line="25">
           <name>$layout</name>
           <default>"main"</default>
           <type/>
@@ -1252,7 +1253,7 @@ for various databases.&lt;/p&gt;</long-description>
     <namespace name="Model" full_name="Skel\Model"/>
   </namespace>
   <namespace name="global" full_name="global"/>
-  <marker count="4">todo</marker>
+  <marker count="3">todo</marker>
   <marker count="0">fixme</marker>
   <deprecated count="0"/>
 </project>

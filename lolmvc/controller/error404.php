@@ -21,11 +21,7 @@ class Error404 extends BaseController {
      * @return void
      */
     public function __construct($appName, $action, $args) {
-        // get the class name
-        $className = explode('\\', strtolower(get_class($this)));
-        $this->classShortName = end($className);
-
-        parent::__construct($appName, $this->classShortName);
+        parent::__construct($appName);
 
         // create the view
         $this->view = new \Lolmvc\Service\Template($appName, $this->classShortName);

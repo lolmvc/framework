@@ -11,30 +11,19 @@ namespace Skel\Controller;
  * @package Skel\Controller
  */
 abstract class SkelController extends \Lolmvc\Controller\BaseController {
-    /**
-     * The name of the class
-     *
-     * @var string
-     * @access protected
-     */
-    protected $classShortName;
 
     /**
      * Constructor
      *
      * @param string $appName  Name of the application
      * @param string $action   Name of the action
-     * @param array $args      Array of the action arguments
+     * @param array  $args     Array of the action arguments
      * @param string $layout   Layout name (default is "main")
      * @access public
      * @return void
      */
     public function __construct($appName, $action, $args, $layout="main") {
-        // get the class name
-        $className = explode('\\', strtolower(get_class($this)));
-        $this->classShortName = end($className);
-
-        parent::__construct($appName, $this->classShortName);
+        parent::__construct($appName);
 
         // create the view  (using the supplied templating engine for this example)
         $this->view = new \Lolmvc\Service\Template($appName, $this->classShortName);
