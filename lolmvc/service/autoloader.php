@@ -25,21 +25,26 @@ namespace Lolmvc\Service;
 class Autoloader
 {
     private $fileExtension = '.php';
-    private $namespace;
-    private $includePaths;
+    private $autoloadRoot;
+    private $namespaces;
     private $namespaceSeparator = '\\';
 
     /**
      * Creates a new <tt>Autoloader</tt> that loads classes of the
      * specified namespace.
      *
-     * @param string              $ns The namespace to use.
-     * @param string|null|array   $includePath One or more include paths to use
+     * @param array $ns The namespaces to load.
+     * Example:
+     * [
+     *  ['Lolmvc' => 'lolmvc'],
+     *  ['Skel' => 'skel'],
+     *  ['MattRWallace' => 'vendor/mattrwallace']
+     * ]
      */
-    public function __construct($ns = null, $includePath = null)
+    public function __construct($ns, $root = null)
     {
-        $this->namespace = $ns;
-        $this->includePaths = (array) $includePath ?: [];
+        $this->autoloadRoot = $root ?: __DIR__;
+        $this->namespaces = $ns;
     }
 
     /**
@@ -115,7 +120,7 @@ class Autoloader
      */
     public function register()
     {
-        return spl_autoload_register(array($this, 'loadClass'));
+        return spl_autoload_register(array($this, 'findFile'));
     }
 
     /**
@@ -134,28 +139,21 @@ class Autoloader
      * @param string $className The name of the class to load.
      * @return bool Success status
      */
-    public function loadClass($className)
+    public function findFile($className)
     {
         $isFound = false;
-        $nsPrefix = $this->namespace;//.$this->namespaceSeparator;
+        $nsPaths = array_filter($this->namespaces, function ($ns) use ($className) {
+                        return (strpos($className, key($ns)) === 0) ? 1 : 0;
+                    }) ?: [['root' => $this->autoloadRoot]];
 
-        if ($this->namespace === null || $nsPrefix === substr($className, 0, strlen($nsPrefix))) {
-            $fileName = $this->resolveFileName($className);
+        $fileName = $this->resolveFileName($className);
 
-            $includePaths = $this->includePaths ?: array('.');
-            foreach ($includePaths as $includePath) {
-                $unresolvedFilePath = $includePath . /*DIRECTORY_SEPARATOR .*/ $fileName;
-                echo "unresolved = " .$unresolvedFilePath."<br />";
-                $isFound = $this->tryLoadClassByPath($className, $unresolvedFilePath);
-                if ($isFound) {
-                    break;
-                }
+        foreach ($nsPaths as $path) {
+            $unresolvedFilePath = reset($path) . DIRECTORY_SEPARATOR . strtolower($fileName);
+            $isFound = $this->tryLoadClassByPath($unresolvedFilePath);
+            if ($isFound) {
+                break;
             }
-        } else {
-            echo "<pre>";
-            echo "nsPrefix: " . $nsPrefix . "\n";
-            echo "substr = " . substr($className, 0, strlen($nsPrefix)) . "\n";
-            echo "</pre>";
         }
 
         return $isFound;
@@ -168,7 +166,7 @@ class Autoloader
      * @param string $unresolvedFilePath Absolute or relative path to the file
      * @return bool Success status
      */
-    private function tryLoadClassByPath($className, $unresolvedFilePath)
+    private function tryLoadClassByPath($unresolvedFilePath)
     {
         $verbatim = stream_resolve_include_path($unresolvedFilePath);
         $lowercase = stream_resolve_include_path(strtolower($unresolvedFilePath));
