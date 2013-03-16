@@ -31,7 +31,7 @@ namespace Lolmvc;
  *
  * @author Mitzip <mitzip@lolmvc.com>
  * @author Matthew Wallace <matt@lolmvc.com>
- * @package lolmvc
+ * @package Lolmvc
  */
 class App {
     /**

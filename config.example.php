@@ -5,7 +5,7 @@
 * framework.
 *
 * @author Mitzip <mitzip@lolmvc.com>
-* @package MVC
+* @package Lolmvc
 */
 class Config {
     /**

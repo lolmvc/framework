@@ -8,7 +8,7 @@ namespace Skel;
 *
 * @author Mitzip <mitzip@lolmvc.com>
 * @author Matt Wallace <matt@lolmvc.com>
-* @package MVC
+* @package Skel
 */
 class Config {
     /**

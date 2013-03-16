@@ -10,7 +10,7 @@ namespace Skel\Model;
  * for various databases.
  *
  * @author Matt Wallace <matt@lolmvc.com>
- * @package \Skel\Model
+ * @package Skel\Model
  */
 class SkelModel extends \Lolmvc\Model\BaseModel {
 }

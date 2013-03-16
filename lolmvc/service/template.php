@@ -31,7 +31,7 @@ namespace Lolmvc\Service;
  * @author	Matt Wallace <matt@lolmvc.com>
  * @author  Chad Emrys Minick
  * @link http://codeangel.org/articles/simple-php-template-engine.html
- * @package \Lolmvc\Service
+ * @package Lolmvc\Service
  */
 class Template implements \Lolmvc\View\BaseView {
 	/**
@@ -41,10 +41,38 @@ class Template implements \Lolmvc\View\BaseView {
 	 * @var array
 	 * @access private
 	 */
-    private $vars = array();			// Array that holds the values needed by the views
+    private $vars = array();
+
+    /**
+     * The name of the view template
+     *
+     * @var string
+     * @access private
+     */
     private $viewName;
+
+    /**
+     * The name of the layout template
+     *
+     * @var string
+     * @access private
+     */
     private $layoutName;
+
+    /**
+     * The name of the controller
+     *
+     * @var string
+     * @access private
+     */
     private $controllerName;
+
+    /**
+     * The name of the application
+     *
+     * @var string
+     * @access private
+     */
     private $appName;
 
     /**

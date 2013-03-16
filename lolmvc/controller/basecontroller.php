@@ -1,4 +1,5 @@
 <?php
+
 namespace Lolmvc\Controller;
 
 /**
@@ -38,8 +39,8 @@ abstract class BaseController {
 	 * Constructor
 	 *
      * @access public
-     * @arg string $appName         The application name.
-     * @arg string $classShortName  The non-fully-qualified class name.
+     * @param string $appName         The application name.
+     * @param string $classShortName  The non-fully-qualified class name.
      * @return void
      *
      * TODO: Move the classShortName computation to BaseController.

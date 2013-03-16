@@ -20,7 +20,7 @@ namespace Lolmvc\Service;
  * @author Kris Wallsmith <kris.wallsmith@gmail.com>
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  * @author Lissachenko Alexander <lisachenko.it@gmail.com>
- * @package \Lolmvc\Service
+ * @package Lolmvc\Service
  */
 class Autoloader
 {
@@ -46,7 +46,7 @@ class Autoloader
      * Sets the namespace separator used by classes in the namespace of this class loader.
      *
      * @param string $sep The separator to use.
-     * @return $this
+     * @return Autoloader this
      */
     public function setNamespaceSeparator($sep)
     {
@@ -68,7 +68,7 @@ class Autoloader
      * Sets the base include path for all class files in the namespace of this class loader.
      *
      * @param string|array $includePath One or more include paths
-     * @return $this
+     * @return Autoloader this
      */
     public function setIncludePath($includePath)
     {
@@ -90,7 +90,7 @@ class Autoloader
      * Sets the file extension of class files in the namespace of this class loader.
      *
      * @param string $fileExtension
-     * @return $this
+     * @return Autoloader this
      */
     public function setFileExtension($fileExtension)
     {

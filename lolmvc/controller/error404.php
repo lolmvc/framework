@@ -11,6 +11,15 @@ namespace Lolmvc\Controller;
  * @defaultAction error
  */
 class Error404 extends BaseController {
+    /**
+     * Constructor
+     *
+     * @param string $appName
+     * @param string $action
+     * @param string $args
+     * @access public
+     * @return void
+     */
     public function __construct($appName, $action, $args) {
         // get the class name
         $className = explode('\\', strtolower(get_class($this)));

@@ -4,7 +4,7 @@
  * The index of the Skel application.
  *
  * @author Matthew Wallace <matt@lolmvc.com>
- * @package \Skel\Webroot
+ * @package Skel\Webroot
  */
 
 // have to include the basic app class

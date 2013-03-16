@@ -7,10 +7,19 @@ namespace Skel\Controller;
  *
  * @uses SkelController
  * @author Matt Wallace <matt@lolmvc.com>
- * @package \Skel\Controller
+ * @package Skel\Controller
  * @defaultAction home
  */
 class Main extends SkelController {
+    /**
+     * Constructor
+     *
+     * @param string $appName
+     * @param string $action
+     * @param array $args
+     * @access public
+     * @return void
+     */
     public function __construct($appName, $action, $args) {
         parent::__construct($appName, $action, $args);
     }

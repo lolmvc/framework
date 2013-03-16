@@ -7,7 +7,7 @@ namespace Lolmvc\Model;
  *
  * @uses Model
  * @author Matt Wallace <matt@lolmvc.com>
- * @pckage Lolmvc\Model
+ * @package Lolmvc\Model
  *
  */
 class Error404 extends BaseModel {

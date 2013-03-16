@@ -6,11 +6,17 @@ namespace Skel\Controller;
  * Application specific abstract controller for the Skel application
  *
  * @abstract
- * @uses \Lolmvc\Controller\BaseController
+ * @uses Lolmvc\Controller\BaseController
  * @author Matt Wallace <matt@lolmvc.com>
- * @package \Skel\Controller
+ * @package Skel\Controller
  */
 abstract class SkelController extends \Lolmvc\Controller\BaseController {
+    /**
+     * The name of the class
+     *
+     * @var string
+     * @access protected
+     */
     protected $classShortName;
 
     /**

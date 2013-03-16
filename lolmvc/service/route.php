@@ -35,13 +35,14 @@ namespace Lolmvc\Service;
  *
  * @author  Mitzip <mitzip@lolmvc.com>
  * @author  Matthew Wallace <matt@lolmvc.com>
- * @package \Lolmvc\Service
+ * @package Lolmvc\Service
  */
 class Route {
 	/**
 	 * Constructor
 	 *
-	 * @param mixed $uri
+     * @param mixed $uri
+     * @param string $appName
 	 * @access public
 	 * @return void
 	 */

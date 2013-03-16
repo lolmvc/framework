@@ -12,7 +12,7 @@ namespace Lolmvc\View;
  * own way in their custom base controller?
  *
  * @author  Matthew Wallace <matt@lolmvc.com>
- * @package \Lolmvc\View
+ * @package Lolmvc\View
  */
 interface BaseView {
     /**

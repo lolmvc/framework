@@ -1,0 +1,517 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>lolmvc Documentation</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="css/template.css" rel="stylesheet" media="all">
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="js/bootstrap.js" type="text/javascript"></script><script src="js/template.js" type="text/javascript"></script><script src="js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="img/favicon.ico">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="index.html">lolmvc Documentation</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Namespaces</a></li>
+<li><a href="namespaces/Lolmvc.html"><i class="icon-th"></i> Lolmvc</a></li>
+<li><a href="namespaces/Skel.html"><i class="icon-th"></i> Skel</a></li>
+<li><a href="namespaces/global.html"><i class="icon-th"></i> global</a></li>
+<li><a>Packages</a></li>
+<li><a href="packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="packages/Lolmvc.html"><i class="icon-folder-open"></i> Lolmvc</a></li>
+<li><a href="packages/Skel.html"><i class="icon-folder-open"></i> Skel</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">34</span></a></li>
+<li><a href="markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">1</span>
+</li></ul></a></li>
+<li><a href="deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4"><ul class="side-nav nav nav-list">
+<li class="nav-header">Filter type</li>
+<li><div class="btn-group type-filter" data-toggle="buttons-checkbox">
+<button class="btn critical">Critical</button><button class="btn error">Error</button><button class="btn notice">Notice</button>
+</div></li>
+<li class="nav-header">Navigation</li>
+<li><a href="#config.example.php"><i class="icon-file"></i>config.example.php</a></li>
+<li><a href="#lolmvc/view/error404/error404.php"><i class="icon-file"></i>lolmvc/view/error404/error404.php</a></li>
+<li><a href="#lolmvc/view/baseview.php"><i class="icon-file"></i>lolmvc/view/baseview.php</a></li>
+<li><a href="#lolmvc/app.php"><i class="icon-file"></i>lolmvc/app.php</a></li>
+<li><a href="#lolmvc/controller/error404.php"><i class="icon-file"></i>lolmvc/controller/error404.php</a></li>
+<li><a href="#lolmvc/controller/basecontroller.php"><i class="icon-file"></i>lolmvc/controller/basecontroller.php</a></li>
+<li><a href="#lolmvc/service/autoloader.php"><i class="icon-file"></i>lolmvc/service/autoloader.php</a></li>
+<li><a href="#lolmvc/service/route.php"><i class="icon-file"></i>lolmvc/service/route.php</a></li>
+<li><a href="#lolmvc/service/pagenotfoundexception.php"><i class="icon-file"></i>lolmvc/service/pagenotfoundexception.php</a></li>
+<li><a href="#lolmvc/service/template.php"><i class="icon-file"></i>lolmvc/service/template.php</a></li>
+<li><a href="#lolmvc/model/error404.php"><i class="icon-file"></i>lolmvc/model/error404.php</a></li>
+<li><a href="#lolmvc/model/basemodel.php"><i class="icon-file"></i>lolmvc/model/basemodel.php</a></li>
+<li><a href="#skel/view/main/main.php"><i class="icon-file"></i>skel/view/main/main.php</a></li>
+<li><a href="#skel/config.php"><i class="icon-file"></i>skel/config.php</a></li>
+<li><a href="#skel/controller/skelcontroller.php"><i class="icon-file"></i>skel/controller/skelcontroller.php</a></li>
+<li><a href="#skel/controller/main.php"><i class="icon-file"></i>skel/controller/main.php</a></li>
+<li><a href="#skel/model/skelmodel.php"><i class="icon-file"></i>skel/model/skelmodel.php</a></li>
+<li><a href="#skel/model/main.php"><i class="icon-file"></i>skel/model/main.php</a></li>
+<li><a href="#config.php"><i class="icon-file"></i>config.php</a></li>
+</ul></div>
+<div class="span8">
+<ul class="breadcrumb">
+<li>
+<a href=""><i class="icon-remove-sign"></i></a><span class="divider">\</span>
+</li>
+<li>Compilation Errors</li>
+</ul>
+<div class="package-contents">
+<a name="config.example.php" id="config.example.php"></a><h3>
+<i class="icon-file"></i>config.example.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file config.example.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents"></div>
+<div class="package-contents">
+<a name="lolmvc/view/error404/error404.php" id="lolmvc/view/error404/error404.php"></a><h3>
+<i class="icon-file"></i>lolmvc/view/error404/error404.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/view/error404/error404.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="lolmvc/view/baseview.php" id="lolmvc/view/baseview.php"></a><h3>
+<i class="icon-file"></i>lolmvc/view/baseview.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/view/baseview.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="lolmvc/app.php" id="lolmvc/app.php"></a><h3>
+<i class="icon-file"></i>lolmvc/app.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/app.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="lolmvc/controller/error404.php" id="lolmvc/controller/error404.php"></a><h3>
+<i class="icon-file"></i>lolmvc/controller/error404.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/controller/error404.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="lolmvc/controller/basecontroller.php" id="lolmvc/controller/basecontroller.php"></a><h3>
+<i class="icon-file"></i>lolmvc/controller/basecontroller.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/controller/basecontroller.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>38</td>
+<td>Argument $appName is missing from the Docblock of __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>38</td>
+<td>Argument $classShortName is missing from the Docblock of __construct()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="lolmvc/service/autoloader.php" id="lolmvc/service/autoloader.php"></a><h3>
+<i class="icon-file"></i>lolmvc/service/autoloader.php<small style="float: right;padding-right: 10px;">5</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/service/autoloader.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>27</td>
+<td>No DocBlock was found for property $fileExtension</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for property $namespace</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for property $includePaths</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $namespaceSeparator</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="lolmvc/service/route.php" id="lolmvc/service/route.php"></a><h3>
+<i class="icon-file"></i>lolmvc/service/route.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/service/route.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>41</td>
+<td>Argument $appName is missing from the Docblock of __construct()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="lolmvc/service/pagenotfoundexception.php" id="lolmvc/service/pagenotfoundexception.php"></a><h3>
+<i class="icon-file"></i>lolmvc/service/pagenotfoundexception.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/service/pagenotfoundexception.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="lolmvc/service/template.php" id="lolmvc/service/template.php"></a><h3>
+<i class="icon-file"></i>lolmvc/service/template.php<small style="float: right;padding-right: 10px;">5</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/service/template.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>45</td>
+<td>No DocBlock was found for property $viewName</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>46</td>
+<td>No DocBlock was found for property $layoutName</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>47</td>
+<td>No DocBlock was found for property $controllerName</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>48</td>
+<td>No DocBlock was found for property $appName</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="lolmvc/model/error404.php" id="lolmvc/model/error404.php"></a><h3>
+<i class="icon-file"></i>lolmvc/model/error404.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/model/error404.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="lolmvc/model/basemodel.php" id="lolmvc/model/basemodel.php"></a><h3>
+<i class="icon-file"></i>lolmvc/model/basemodel.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file lolmvc/model/basemodel.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents"></div>
+<div class="package-contents">
+<a name="skel/view/main/main.php" id="skel/view/main/main.php"></a><h3>
+<i class="icon-file"></i>skel/view/main/main.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file skel/view/main/main.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents"></div>
+<div class="package-contents">
+<a name="skel/config.php" id="skel/config.php"></a><h3>
+<i class="icon-file"></i>skel/config.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file skel/config.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="skel/controller/skelcontroller.php" id="skel/controller/skelcontroller.php"></a><h3>
+<i class="icon-file"></i>skel/controller/skelcontroller.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file skel/controller/skelcontroller.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for property $classShortName</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="skel/controller/main.php" id="skel/controller/main.php"></a><h3>
+<i class="icon-file"></i>skel/controller/main.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file skel/controller/main.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="skel/model/skelmodel.php" id="skel/model/skelmodel.php"></a><h3>
+<i class="icon-file"></i>skel/model/skelmodel.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file skel/model/skelmodel.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="skel/model/main.php" id="skel/model/main.php"></a><h3>
+<i class="icon-file"></i>skel/model/main.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file skel/model/main.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="config.php" id="config.php"></a><h3>
+<i class="icon-file"></i>config.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file config.php</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-03-15T22:09:45-05:00.<br></footer></div>
+</div>
+</body>
+</html>

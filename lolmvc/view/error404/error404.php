@@ -3,7 +3,7 @@
 /**
  * Template view for the default status 404 page.
  *
- * @package \Lolmvc\View
+ * @package Lolmvc\View
  */
 
 ?>

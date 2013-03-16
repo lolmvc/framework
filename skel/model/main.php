@@ -5,9 +5,9 @@ namespace Skel\Model;
 /**
  * Stub model for the main controller
  *
- * @uses SkelModel
+ * @uses Skel\SkelModel
  * @author Matt Wallace <matt@lolmvc.com>
- * @package \Skel\Model
+ * @package Skel\Model
  */
 class Main extends SkelModel {
 }
