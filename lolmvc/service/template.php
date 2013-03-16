@@ -43,37 +43,32 @@ class Template implements \Lolmvc\View\BaseView {
 	 */
     private $vars = array();
 
-    /**
-     * The name of the view template
-     *
+    /**#@+
      * @var string
      * @access private
+     */
+
+    /**
+     * The name of the view template
      */
     private $viewName;
 
     /**
      * The name of the layout template
-     *
-     * @var string
-     * @access private
      */
     private $layoutName;
 
     /**
      * The name of the controller
-     *
-     * @var string
-     * @access private
      */
     private $controllerName;
 
     /**
      * The name of the application
-     *
-     * @var string
-     * @access private
      */
     private $appName;
+
+    /**#@-*/
 
     /**
      * Constructor

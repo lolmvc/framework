@@ -54,7 +54,7 @@ abstract class BaseController {
 	/**
 	 * Renders and echoes the HTML
      *
-     * @see \View\BaseView
+     * @see \Lolmvc\View\BaseView
 	 * @access public
 	 * @return void
 	 */
