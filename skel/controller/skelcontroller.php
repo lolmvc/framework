@@ -3,7 +3,7 @@
 namespace Skel\Controller;
 
 /**
- * Abstract controller for the Skel application
+ * Application specific abstract controller for the Skel application
  *
  * @abstract
  * @uses \Lolmvc\Controller\BaseController
@@ -13,6 +13,16 @@ namespace Skel\Controller;
 abstract class SkelController extends \Lolmvc\Controller\BaseController {
     protected $classShortName;
 
+    /**
+     * Constructor
+     *
+     * @param string $appName  Name of the application
+     * @param string $action   Name of the action
+     * @param array $args      Array of the action arguments
+     * @param string $layout   Layout name (default is "main")
+     * @access public
+     * @return void
+     */
     public function __construct($appName, $action, $args, $layout="main") {
         // get the class name
         $className = explode('\\', strtolower(get_class($this)));

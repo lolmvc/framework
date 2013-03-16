@@ -2,24 +2,38 @@
 namespace Lolmvc\Service;
 
 /**
- * Template, a simple templating engine to aid in clean separation of presentation
- * logic from application logic.
+ * A templating engine that extends the BaseView.
  *
- * After creating an instance of the Template class you can use it to generate
- * your html by calling the render method.
+ * Variables may to be added to the view, the names of the view template and
+ * the layout template should be set the same way that other variables are.
+ * The predetermined names for these settings are 'viewName' and 'layoutName'.
+ *
+ * TODO: The classname was an application specific need in the original
+ * application. The requirement to pass it to the constructor should be
+ * replaced by setting it as a normal view variable in the app's controller.
+ *
+ * Example:
  *
  * <code>
- * $template = new \Assets\Template();
- * $renderedHTML = $template->render($viewClass, $templateClass);
- * echo $renderedHTML;
+ * $this->view = new \Lolmvc\Service\Template('mysite', $classShortName);
+ * $this->view->pageTitle   = "My home page";
+ * $this->view->pageHeading = "This is my home page";
+ * $template->renderPage();
  * </code>
+ *
+ * TODO: Add information about how to structure template file locations and why
+ * app name is required.
+ *
+ * TODO: Explain how multiple JavaScript files are handled
+ *
+ * Note: Original logic derived from Chad Emrys Minick's "Simple PHP template engine"
  *
  * @author	Matt Wallace <matt@lolmvc.com>
  * @author  Chad Emrys Minick
  * @link http://codeangel.org/articles/simple-php-template-engine.html
- * @package MVC
+ * @package \Lolmvc\Service
  */
-class Template implements \Lolmvc\View\View {
+class Template implements \Lolmvc\View\BaseView {
 	/**
 	 * Array containing "name" => value pairs for variables that will be used
 	 * by the views/layouts.
@@ -33,6 +47,14 @@ class Template implements \Lolmvc\View\View {
     private $controllerName;
     private $appName;
 
+    /**
+     * Constructor
+     *
+     * @param string $appName         Name of the application
+     * @param string $controllerName
+     * @access public
+     * @return void
+     */
 	public function __construct($appName, $controllerName) {
         $this->controllerName = $controllerName;
         $this->appName = $appName;
@@ -40,24 +62,15 @@ class Template implements \Lolmvc\View\View {
 	}
 
 	/**
-	 * Allows retrieving of values from {@link vars} using the form <code>echo
-	 * $template->key;</code>
-	 *
-	 * @param string $name
-	 * @access public
-	 * @return mixed
-	 */
-    public function &__get($name) {
-        if ($name == 'viewName')
-            return $this->viewName;
-        if ($name == 'layoutName')
-            return $this->layoutName;
-
-		return $this->vars[$name];
-	}
-
-	/**
-	 * Allows setting values in {@link vars} using the form <code>$template->key = $value;</code>
+     * Allows setting of view variable values.
+     *
+     * Example:
+     *
+     * To set a value for a view variable named 'key' to the value 'value' ...
+     *
+     * <code>
+     * $template->key = $value;
+     * </code>
 	 *
 	 * @param string $name
 	 * @param mixed $value
@@ -83,10 +96,33 @@ class Template implements \Lolmvc\View\View {
 	}
 
 	/**
-	 * Renders all the HTML
+     * Allows retrieving of view variable values.
+     *
+     * Example:
+     *
+     * To print the value of a previously set view variable named 'key' ...
+     *
+     * <code>
+     * echo $template->key;
+     * </code>
 	 *
-	 * @param string $viewName Name of the view class to instantiate
-	 * @param string $layoutName Name of the layout class to instantiate
+	 * @param string $name
+	 * @access public
+	 * @return mixed
+	 */
+    public function &__get($name) {
+        if ($name == 'viewName')
+            return $this->viewName;
+        if ($name == 'layoutName')
+            return $this->layoutName;
+
+		return $this->vars[$name];
+	}
+
+	/**
+	 * Renders and displays the HTML using the privided templates and the
+     * variables that have been added to the templating engine.
+	 *
 	 * @access public
 	 * @return void
 	 */

@@ -28,8 +28,9 @@ class Error404 extends BaseController {
     }
 
     /**
-     * The only action for the Error404 controller.  Handles displaying the 404
-     * error to the user.
+     * The only action for the Error404 controller.
+     *
+     * Handles displaying the 404 error to the user.
      *
      * @param array $args
      * @access public

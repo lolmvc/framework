@@ -3,12 +3,11 @@
 namespace Lolmvc\Service;
 
 /**
- * Exception that can be thrown by almost any entitiy in the MVC to notify its
- * controller that a 404 has occured.
+ * Exception that can be thrown at any point in the app to notify its
+ * controller that a 404 has occured and trigger the 404 page to display.
  *
  * @author Matt Wallace <matt@lolmvc.com>
- * @package Service
- *
+ * @package \Lolmvc\Service
  */
 class PageNotFoundException extends \Exception {
     public function __construct($message) {

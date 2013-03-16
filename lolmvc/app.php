@@ -7,8 +7,25 @@ namespace Lolmvc;
  * The root namespace of the application must be passed or the router will not be able to find your application specific code.
  *
  * Example:
+ *
+ * The following code should be in the index.php within your webroot for a
+ * site/application
+ *
  * <code>
+ *   // Include the file with the App class.
+ *   // Once the App object is constructed all your classes can be found and
+ *   //   included by the autoloader.
+ *   require_once("../../lolmvc/app.php");
+ *
+ *   // Create a new App with the name of the app.
+ *   // The name of the app should be the same as the name of the folder and
+ *   //   namespace for your app.
  *   $skel = new \Lolmvc\App('skel');
+ *
+ *   // Optional configuration can be done here.  See function defenitions
+ *   //   below for the possibilities.
+ *
+ *   // Siginal the app to execute
  *   $skel->run();
  * </code>
  *
@@ -18,7 +35,7 @@ namespace Lolmvc;
  */
 class App {
     /**
-     * The name of the app. Should be the same as the app's namespace
+     * The name of the app, should be the same as the app's namespace
      *
      * @var
      * @private
@@ -28,7 +45,7 @@ class App {
     /**
      * Constructor
      *
-     * @param string $appName
+     * @param string $appName  The name of the application
      * @access public
      * @return void
      */
@@ -58,9 +75,11 @@ class App {
     }
 
     /**
-     * useLocalConfig
+     * Loads a local configuration file for the app.
      *
-     * Loads a local config for the app
+     * The format for the file is identical to the framework level
+     * configuration but exists in the root of the application. See the
+     * local configuration for the Skel example app for more information.
      *
      * @access public
      * @return void
@@ -71,9 +90,8 @@ class App {
     }
 
     /**
-     * run
-     *
      * Called after all settings are complete and triggers the app to actually "run".
+     *
      * This means that the router created and generates the controller which allows us
      * to trigger the display of the rendered webpage.
      *
@@ -105,10 +123,10 @@ class App {
     }
 
     /**
-     * processSettings
+     * Called as the first step of running the app.
      *
-     * Called as the first step of running the app.  Now that it is too late to change any
-     * globally set configurations we can process all the settings.
+     * Helper function that sets the app state now that all configuration
+     * values have been imported.
      *
      * @access private
      * @return void

@@ -8,8 +8,10 @@ namespace Lolmvc\Service;
  * http://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
  *
  *     // Example which loads classes for the Exegesis annotation parser.
+ *     <code>
  *     $classLoader = new Autoloader('MattRWallace', ['vendor/matt/src','/vendor/matt']);
  *     $classLoader->register();
+ *     </code>
  *
  * @author Mitzip <mitzip@lolmvc.com>
  * @author Jonathan H. Wage <jonwage@gmail.com>
@@ -18,6 +20,7 @@ namespace Lolmvc\Service;
  * @author Kris Wallsmith <kris.wallsmith@gmail.com>
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  * @author Lissachenko Alexander <lisachenko.it@gmail.com>
+ * @package \Lolmvc\Service
  */
 class Autoloader
 {
@@ -199,5 +202,3 @@ class Autoloader
         return $fileName;
     }
 }
-
-

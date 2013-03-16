@@ -3,36 +3,41 @@ namespace Lolmvc\Service;
 
 /**
  * Determines which controller is requested in the URI and creates an
- * instance of it.  The remainder of the URI (Action and params) are
- * passed to the controller's constructor so that the onstructor can
+ * instance of it.
+ *
+ * The remainder of the URI (Action and params) are
+ * passed to the controller's constructor so that the constructor can
  * determine the appropriate actions.
  *
  * Example:
  *
- * <code>
- * $router = new \Assets\Router($_SERVER['REQUEST_URI']);
+ * The following code is how the App object handles routing and status 404
+ * responses.
  *
- * if ($controller = $router.getController()) {
- *    // utilize controller functionality
- * }
- * else {
- *    // handle error
+ * <code>
+ * try {
+ *    $router = new \Lolmvc\Service\Router($_SERVER['REQUEST_URI'], 'Skel');
+ * } catch (\Lolmvc\Service\PageNotFoundException $e) {
+ *    // get the error404 classname
+ *    if (CUSTOM_404)
+ *       $error404namespace = $appname;
+ *    else
+ *       $error404namespace = "lolmvc";
+ *
+ *    $request = "error404";
+ *    $message = $e->getMessage();
+ *    if (!empty($message))
+ *       $request .= "/$message/";
+ *    $router = new
+ *    \Lolmvc\Service\Route($request, $error404namespace);
  * }
  * </code>
  *
  * @author  Mitzip <mitzip@lolmvc.com>
  * @author  Matthew Wallace <matt@lolmvc.com>
- * @package MVC
+ * @package \Lolmvc\Service
  */
 class Route {
-	/**
-	 * Holds the controller instance
-	 *
-	 * @var
-	 * @access private
-	 */
-	private $controllerObject;
-
 	/**
 	 * Constructor
 	 *
@@ -142,12 +147,20 @@ class Route {
 		 * ======================= */
 
 		try {
-			$this->controllerObject = new $controllerClass($appName, $action->getName(), $parameters);
+			new $controllerClass($appName, $action->getName(), $parameters);
 		} catch (PageNotFoundException $e) {
 			throw new PageNotFoundException("Failed to create the controller (".$e->getMessage().")");
 		}
 	}
 
+    /**
+     * Helper function to return a list of actions for the selected class.
+     *
+     * @param AnnotationClass $annotationClass
+     * @access private
+     * @see \MattRWallace\Exegesis\AnnotationClass
+     * @return void
+     */
 	private function getActions($annotationClass) {
 		// Get a list of public methods and determine which are actions
 		$publics = $annotationClass->getMethods(\ReflectionMethod::IS_PUBLIC);
@@ -161,6 +174,16 @@ class Route {
 		return $actions;
 	}
 
+    /**
+     * Returns the default action if there is one, if not an empty string
+     * is returned.
+     *
+     * @param AnnotationClass $annotationClass
+     * @access public
+     * @return AnnotationMethod The default action
+     * @see \MattRWallace\Exegesis\AnnotationClass
+     * @see \MattRWallace\Exegesis\AnnotationMethod
+     */
 	public function getDefaultAction($annotationClass) {
 		$action = $annotationClass->getAnnotationValue('@defaultAction')[0];
 		try {
@@ -170,15 +193,5 @@ class Route {
 		}
 
 		return new \MattRWallace\Exegesis\AnnotationMethod($annotationClass->getName(), $action->getName());
-	}
-
-	/**
-	 * Returns the Controller instance
-	 *
-	 * @access public
-	 * @return Controller
-	 */
-	public function getController() {
-		return $this->controllerObject;
 	}
 }

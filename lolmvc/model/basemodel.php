@@ -2,7 +2,7 @@
 namespace Lolmvc\Model;
 
 /**
- * Abstract database class that all models will inherit from
+ * Abstract database class that all models will inherit from.
  *
  * TODO: This either needs to be fleshed out with some standard functionality
  * or we need to rethink if this class even has a purpose.

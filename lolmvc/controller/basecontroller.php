@@ -5,9 +5,10 @@ namespace Lolmvc\Controller;
  * Abstract class that provides the methods and properties that all
  * controllers will need to inherit.
  *
- * Concrete controller classes which inherit from Controller must set the
- * values of the private members $viewName and $layoutName by using the
- * protected setter methods for the class to be able to correctly render HTML.
+ * Each app should utilize an abstract base controller class that extends this
+ * one.  Such an app level base controller can encapsulate all the application
+ * specific properties and methods that you want available to all controllers
+ * within your app.
  *
  * @abstract
  * @author  Mitzip <mitzip@lolmvc.com>
@@ -17,7 +18,7 @@ namespace Lolmvc\Controller;
 abstract class BaseController {
 
 	/**
-	 * The model object providing API that accesses the Database
+	 * The model object providing API that accesses the Database.
 	 *
 	 * @var
 	 * @access protected
@@ -26,7 +27,7 @@ abstract class BaseController {
 
     /**
      * The view object that interfaces with the chosen view/templating
-     * framework
+     * framework.
      *
      * @var
      * @access protected
@@ -36,8 +37,12 @@ abstract class BaseController {
 	/**
 	 * Constructor
 	 *
-	 * @access public
-	 * @return void
+     * @access public
+     * @arg string $appName         The application name.
+     * @arg string $classShortName  The non-fully-qualified class name.
+     * @return void
+     *
+     * TODO: Move the classShortName computation to BaseController.
 	 */
 	public function __construct($appName, $classShortName) {
 		// get the model
@@ -48,7 +53,7 @@ abstract class BaseController {
 	/**
 	 * Renders and echoes the HTML
      *
-     * @see \View\View
+     * @see \View\BaseView
 	 * @access public
 	 * @return void
 	 */
