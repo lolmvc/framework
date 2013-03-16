@@ -71,33 +71,33 @@ framework.</description>
       <error line="0" code="50007">No page-level DocBlock was found in file lolmvc/view/error404/error404.php</error>
     </parse_markers>
   </file>
-  <file path="lolmvc/view/baseview.php" hash="1dba9caf79334ccebb105ef6648517ac" package="Default">
-    <interface namespace="Lolmvc\View" line="17" package="Lolmvc\View">
+  <file path="lolmvc/view/baseview.php" hash="2ea448e85ada4b1cbcb105840c449d73" package="Default">
+    <interface namespace="Lolmvc\View" line="13" package="Lolmvc\View">
       <name>BaseView</name>
       <full_name>\Lolmvc\View\BaseView</full_name>
       <docblock line="5">
         <description>Interface that any templating engines or view objects must implement in
 order for the framework to trigger the rendering of HTML.</description>
-        <long-description>&lt;p&gt;TODO: If the rendering of html is at the discretion of the controller should
-we be enforcing even this much or should we allow them to create custom
-views/templating engines as they see fit and trigger the rendering in their
-own way in their custom base controller?&lt;/p&gt;</long-description>
+        <long-description></long-description>
         <tag line="5" name="author" description="Matthew Wallace &lt;matt@lolmvc.com&gt;"/>
         <tag line="5" name="package" description="Lolmvc\View"/>
       </docblock>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Lolmvc\View" line="24" package="Lolmvc\View">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lolmvc\View" line="21" package="Lolmvc\View">
         <name>renderPage</name>
         <full_name>renderPage</full_name>
-        <docblock line="18">
+        <docblock line="15">
           <description>The name of the function that should render the HTML and echo it.</description>
-          <long-description/>
-          <tag line="18" name="access" description="public"/>
-          <tag line="18" name="return" description="" type="void">
+          <long-description></long-description>
+          <tag line="15" name="access" description="public"/>
+          <tag line="15" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
       </method>
     </interface>
+    <markers>
+      <todo line="14">If the rendering of html is at the discretion of the controller should we be enforcing even this much or should we allow them to create custom views/templating engines as they see fit and trigger the rendering in their own way in their custom base controller?</todo>
+    </markers>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file lolmvc/view/baseview.php</error>
     </parse_markers>
@@ -294,7 +294,7 @@ values have been imported.&lt;/p&gt;</long-description>
       <error line="0" code="50007">No page-level DocBlock was found in file lolmvc/controller/error404.php</error>
     </parse_markers>
   </file>
-  <file path="lolmvc/controller/basecontroller.php" hash="fbe02c7d5ddfc35738f5372ea666a801" package="Default">
+  <file path="lolmvc/controller/basecontroller.php" hash="edb909b7c95259156ec9e536279fbdea" package="Default">
     <class final="false" abstract="true" namespace="Lolmvc\Controller" line="19" package="Lolmvc\Controller">
       <extends/>
       <name>BaseController</name>
@@ -332,7 +332,7 @@ framework.</description>
           <tag line="29" name="access" description="protected"/>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="Lolmvc\Controller" line="48" package="Lolmvc\Controller">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lolmvc\Controller" line="47" package="Lolmvc\Controller">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <docblock line="38">
@@ -345,16 +345,16 @@ framework.</description>
           <tag line="38" name="param" description="The non-fully-qualified class name." type="string" variable="$classShortName">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="38" name="return" description="TODO: Move the classShortName computation to BaseController." type="void">
+          <tag line="38" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="48">
+        <argument line="47">
           <name>$appName</name>
           <default/>
           <type/>
         </argument>
-        <argument line="48">
+        <argument line="47">
           <name>$classShortName</name>
           <default/>
           <type/>
@@ -374,6 +374,9 @@ framework.</description>
         </docblock>
       </method>
     </class>
+    <markers>
+      <todo line="48">Move the classShortName computation to BaseController.</todo>
+    </markers>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file lolmvc/controller/basecontroller.php</error>
     </parse_markers>
@@ -1011,20 +1014,22 @@ variables that have been added to the templating engine.</description>
       <error line="0" code="50007">No page-level DocBlock was found in file lolmvc/model/error404.php</error>
     </parse_markers>
   </file>
-  <file path="lolmvc/model/basemodel.php" hash="0ae3986ffb41d14812bfd874e50c6273" package="Default">
-    <class final="false" abstract="true" namespace="Lolmvc\Model" line="14" package="Lolmvc\Model">
+  <file path="lolmvc/model/basemodel.php" hash="0c7af2419e6d86e98000d16b8cc5c003" package="Default">
+    <class final="false" abstract="true" namespace="Lolmvc\Model" line="11" package="Lolmvc\Model">
       <extends/>
       <name>BaseModel</name>
       <full_name>\Lolmvc\Model\BaseModel</full_name>
       <docblock line="4">
         <description>Abstract database class that all models will inherit from.</description>
-        <long-description>&lt;p&gt;TODO: This either needs to be fleshed out with some standard functionality
-or we need to rethink if this class even has a purpose.&lt;/p&gt;</long-description>
+        <long-description></long-description>
         <tag line="4" name="abstract" description=""/>
         <tag line="4" name="author" description="Mitzip &lt;mitzip@lolmvc.com&gt;"/>
         <tag line="4" name="package" description="Lolmvc\Model"/>
       </docblock>
     </class>
+    <markers>
+      <todo line="12">This either needs to be fleshed out with some standard functionality or we need to rethink if this class even has a purpose.</todo>
+    </markers>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file lolmvc/model/basemodel.php</error>
     </parse_markers>
@@ -1263,7 +1268,7 @@ for various databases.&lt;/p&gt;</long-description>
     <namespace name="Model" full_name="Skel\Model"/>
   </namespace>
   <namespace name="global" full_name="global"/>
-  <marker count="1">todo</marker>
+  <marker count="4">todo</marker>
   <marker count="0">fixme</marker>
   <deprecated count="0"/>
 </project>

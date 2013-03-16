@@ -43,9 +43,9 @@ abstract class BaseController {
      * @param string $classShortName  The non-fully-qualified class name.
      * @return void
      *
-     * TODO: Move the classShortName computation to BaseController.
 	 */
 	public function __construct($appName, $classShortName) {
+        // TODO: Move the classShortName computation to BaseController.
 		// get the model
 		$modelName = "\\$appName\\Model\\" . ucfirst($classShortName);
 		$this->model = new $modelName();
