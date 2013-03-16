@@ -61,12 +61,10 @@ class App {
         //spl_autoload_register();
         $frameworkBase = dirname(__DIR__);
         $includedNS = [
-            ['Lolmvc' => $frameworkBase],
-            [$this->appName => $frameworkBase],
-            ['MattRWallace' => $frameworkBase . '/vendor']
+            ['MattRWallace' => 'vendor']
         ];
         require 'service/autoloader.php';
-        $baseLoader = new Service\Autoloader($includedNS, $frameworkBase);
+        $baseLoader = new Service\Autoloader($frameworkBase,$includedNS);
         $baseLoader->register();
         // load configuration values
         //require '../../config.php';
