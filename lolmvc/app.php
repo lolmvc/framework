@@ -56,8 +56,9 @@ class App {
         * Initialize the built-in PHP class autoloader.
         */
         require 'service/autoloader.php';
-        $loader = new Service\Autoloader([['MattRWallace\\Exegesis' => 'vendor']]);
-        $loader->importComposerNamespaces()
+        $loader = new Service\Autoloader();
+        $loader->addNamespaces([['MattRWallace\\Exegesis' => 'vendor']])
+            ->importComposerNamespaces()
             ->register();
 
         new \Config();

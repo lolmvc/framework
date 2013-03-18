@@ -51,12 +51,25 @@ class Autoloader
     public function __construct($namespaces = [], $root = null)
     {
         $this->autoloadRoot = $root ?: '..' . DIRECTORY_SEPARATOR . '..';
-        if ($namespaces) {
-            $this->namespaces = array_map(function ($includePath) {
-                    $trimmed = trim(reset($includePath), DIRECTORY_SEPARATOR);
-                    return [key($includePath) => $trimmed];
-                },$namespaces);
+        $this->namespaces = $this->trimPaths($namespaces);
+    }
+
+    /**
+     * Trims away trailing DIRECTORY_SEPARATORs from paths
+     *
+     * @param array namespace array
+     * @return array trimmed namespace array or null array
+     */
+    private function trimPaths($pathsToTrim = [])
+    {
+        $trimmedPaths = [];
+        if ($pathsToTrim) {
+            $trimmedPaths = array_map(function ($includePath) {
+                        $trimmed = rtrim(reset($includePath), DIRECTORY_SEPARATOR);
+                        return [key($includePath) => $trimmed];
+                    },$pathsToTrim);
         }
+        return $trimmedPaths;
     }
 
     /**
@@ -81,14 +94,17 @@ class Autoloader
 
 
     /**
-     * Sets the base include path for all class files in the namespace of this class loader.
+     * Add namespaces after the constructor has executed.
      *
-     * @param string|array $includePath One or more include paths
+     * @param array accepts namespaces defined just like for the contructor
      * @return Autoloader this
      */
-    public function addNamespace($namespace,$includePath)
+    public function addNamespaces($namespaces)
     {
-        $this->namespaces[] = [$namespace => $includePath];
+        $trimmedNamespaces = $this->trimPaths($namespaces);
+        foreach ($trimmedNamespaces as $ns) {
+            $this->namespaces[] = $ns;
+        }
         return $this;
     }
 
