@@ -7,11 +7,11 @@ namespace Lolmvc\Service;
  *
  * http://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
  *
- *     // Example which loads classes for the Exegesis annotation parser.
- *     <code>
- *     $classLoader = new Autoloader();
- *     $classLoader->register();
- *     </code>
+ *      // Example which loads classes for the Exegesis annotation parser.
+ *      $loader = new Autoloader();
+ *      $loader->addNamespaces([['MattRWallace\\Exegesis' => 'vendor']])
+ *          ->importComposerNamespaces()
+ *          ->register();
  *
  * @author Mitzip <mitzip@lolmvc.com>
  * @author Jonathan H. Wage <jonwage@gmail.com>
@@ -21,6 +21,9 @@ namespace Lolmvc\Service;
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  * @author Lissachenko Alexander <lisachenko.it@gmail.com>
  * @package Lolmvc\Service
+ * @todo Implement the ability to change the namespace seperator
+ * @todo Make usage of addNamespaces more intuitive
+ * @todo completely docu/comment and fix authors
  */
 class Autoloader
 {
@@ -36,14 +39,14 @@ class Autoloader
      * Multiple namespaces per include path.
      * Both absolute and relative to root paths.
      *
-     * Example:
-     * $namespaces = [
-     *  ['Cool\\CoolLib' => 'library/coollib/src'],
-     *  ['Neat\\NeatLib' => 'library/neatlib'],
-     *  ['Awe\\AwesomeLib' => 'library/coollib/src'],
-     *  ['Cool\\CoolLib' => 'library/coollib'],
-     *  ['MattRWallace\\Exegesis' => 'vendor']
-     * ]
+     *      // Example array of namespaces to pass to Autoloader
+     *      $namespaces = [
+     *          ['Cool\\CoolLib' => 'library/coollib/src'],
+     *          ['Neat\\NeatLib' => 'library/neatlib'],
+     *          ['Awe\\AwesomeLib' => 'library/coollib/src'],
+     *          ['Cool\\CoolLib' => 'library/coollib'],
+     *          ['MattRWallace\\Exegesis' => 'vendor']
+     *      ];
      *
      * @param string root directory that all include paths are resolved against
      * @param array $namespaces The namespaces to load.
@@ -168,22 +171,30 @@ class Autoloader
 
         if ($nsIncludePathsAvailable) {
             array_map(function ($path) use ($foundFile,$pathFromNamespace) {
-                $foundFile = stream_resolve_include_path($this->autoloadRoot .
+                $foundFile = 
+                    // lowercase normalized directory structure
+                    stream_resolve_include_path($this->autoloadRoot .
                     DIRECTORY_SEPARATOR . reset($path) . DIRECTORY_SEPARATOR . strtolower($pathFromNamespace))
                     ?:
+                    // the namespace verbatim, resolved to filename
                     stream_resolve_include_path($this->autoloadRoot .
                     DIRECTORY_SEPARATOR . reset($path) . DIRECTORY_SEPARATOR . $pathFromNamespace)
+                    // absolute path, verbatim
                     ?:
                     stream_resolve_include_path(reset($path) . DIRECTORY_SEPARATOR . $pathFromNamespace)
+                    // absolute path normalized
                     ?:
                     stream_resolve_include_path(reset($path) . DIRECTORY_SEPARATOR . strtolower($pathFromNamespace));
                 if ($foundFile) return include $foundFile;
             },$nsIncludePathsAvailable);
             return $foundFile;
         } else { // if no paths are available, try root
-            $foundFile = stream_resolve_include_path($this->autoloadRoot . DIRECTORY_SEPARATOR .
+            $foundFile = 
+                // normalized from root
+                stream_resolve_include_path($this->autoloadRoot . DIRECTORY_SEPARATOR .
                 strtolower($pathFromNamespace))
                 ?:
+                // verbatim from root
                 stream_resolve_include_path($this->autoloadRoot . DIRECTORY_SEPARATOR .
                 $pathFromNamespace);
             return ($foundFile) ? include $foundFile : $foundFile;
