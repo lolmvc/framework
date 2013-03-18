@@ -52,22 +52,14 @@ class App {
     function __construct($appName) {
         $this->appName = ucfirst($appName);
 
-        /**
+       /**
         * Initialize the built-in PHP class autoloader.
-         */
-        // TODO: remove the include path modification when autoloader is done
-        //set_include_path(get_include_path() . PATH_SEPARATOR . realpath('../../') . PATH_SEPARATOR . realpath('../../vendor'));
-        //spl_autoload_extensions('.php');
-        //spl_autoload_register();
-        $frameworkBase = dirname(__DIR__);
-        $includedNS = [
-            ['MattRWallace' => 'vendor']
-        ];
+        */
         require 'service/autoloader.php';
-        $baseLoader = new Service\Autoloader($frameworkBase,$includedNS);
-        $baseLoader->register();
-        // load configuration values
-        //require '../../config.php';
+        $loader = new Service\Autoloader([['MattRWallace\\Exegesis' => 'vendor']]);
+        $loader->importComposerNamespaces()
+            ->register();
+
         new \Config();
     }
 

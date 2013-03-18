@@ -26,21 +26,14 @@
 			"role": "Developer"
 		},
 		{	"name": "Jose Antonio Martinez",
-			"email" "antonio@lolmvc.com",
+			"email": "antonio@lolmvc.com",
 			"homepage": "http://blog.antoniomtz.org",
 			"role": "Developer"
 		},
 		{
 			"name": "lolmvc Community",
 			"email": "benefactors@lolmvc.com",
-			"homepage": "http://lolmvc.com/contributors",
-		}
-	],
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/MattRWallace/Exegesis",
-			"vendor-alias": "matt"
+			"homepage": "http://lolmvc.com/contributors"
 		}
 	],
 	"require": {
@@ -50,10 +43,10 @@
 		"ext-json": "*",
 		"ext-Reflection": "*",
 		"ext-SPL": "*",
-		"matt/exegesis": "dev-master",
+		"mattrwallace/exegesis": "dev-master",
 	},
 	"require-dev": {
-		"phpunit/phpunit": "dev-master",
+		"phpunit/phpunit": "dev-master"
 	},
 	"suggest": {
 		"monolog/monolog": "Allows more advanced logging of the application flow",
@@ -76,5 +69,5 @@
 		"sonata-project/google-authenticator": "Google lib for two-factor auth",
 		"sorien/google-api": "General Google API for their other products, G+",
 		"firephp/firephp-core": "Allows logging from php code to browser console"
-	},
+	}
 }
