@@ -86,7 +86,13 @@ class Autoloader
 
         if ($composerNamespaces) {
             foreach ($composerNamespaces as $ns => $path) {
-                $this->namespaces[] = [$ns => $path];
+                if (is_array($path)) {
+                    foreach ($path as $multipath) {
+                        $this->namespaces[] = [$ns => $multipath];
+                    }
+                } else {
+                    $this->namespaces[] = [$ns => $path];
+                }
             }
         }
         return $this;
