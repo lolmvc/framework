@@ -43,7 +43,7 @@
 		"ext-json": "*",
 		"ext-Reflection": "*",
 		"ext-SPL": "*",
-		"mattrwallace/exegesis": "dev-master",
+		"mattrwallace/exegesis": "dev-master"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "dev-master"
@@ -69,12 +69,5 @@
 		"sonata-project/google-authenticator": "Google lib for two-factor auth",
 		"sorien/google-api": "General Google API for their other products, G+",
 		"firephp/firephp-core": "Allows logging from php code to browser console"
-	},
-	"autoload": {
-		"psr-0": {
-			"Lolmvc\\": "",
-			"Skel\\": "",
-			"": "/"
-		}
 	}
 }

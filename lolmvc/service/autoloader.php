@@ -9,7 +9,8 @@ namespace Lolmvc\Service;
  *
  *      // Example which loads classes for the Exegesis annotation parser.
  *      $loader = new Autoloader();
- *      $loader->addNamespaces([['MattRWallace\\Exegesis' => 'vendor']])
+ *      $loader
+ *          ->addNamespaces([['MattRWallace\\Exegesis' => 'vendor']])
  *          ->importComposerNamespaces()
  *          ->register();
  *
@@ -51,7 +52,7 @@ class Autoloader
      * @param string root directory that all include paths are resolved against
      * @param array $namespaces The namespaces to load.
     */
-    public function __construct($namespaces = [], $root = null)
+    public function __construct($root = null, $namespaces = [])
     {
         $this->autoloadRoot = $root ?: '..' . DIRECTORY_SEPARATOR . '..';
         $this->namespaces = $this->trimPaths($namespaces);
@@ -87,17 +88,20 @@ class Autoloader
             $composerRoot . DIRECTORY_SEPARATOR . 'composer' . DIRECTORY_SEPARATOR .
             'autoload_namespaces.php';
 
-        if ($composerNamespaces) {
-            foreach ($composerNamespaces as $ns => $path) {
-                if (is_array($path)) {
-                    foreach ($path as $multipath) {
-                        $this->namespaces[] = [$ns => $multipath];
+        if ($composerNamespaces) { // if composer has namespaces for deps
+            foreach ($composerNamespaces as $ns => $includePath) {
+                if (strlen($ns) !== 0) { // if namespace specified, unspecified composer catchall not supported
+                    if (is_array($includePath)) { // if namespace has multiple include paths
+                        foreach ($includePath as $multipath) {
+                            $this->namespaces[] = [$ns => $multipath];
+                        }
+                    } else { // if namespace has only a single include path
+                        $this->namespaces[] = [$ns => $includePath];
                     }
-                } else {
-                    $this->namespaces[] = [$ns => $path];
                 }
             }
         }
+        $this->namespaces = $this->trimPaths($this->namespaces);
         return $this;
     }
 
@@ -157,7 +161,15 @@ class Autoloader
     public function findFile($className)
     {
         $foundFile = false;
-        $pathFromNamespace = $this->convertNamespaceToPath($className);
+        $pathFromNamespace = $this->resolveRelativeFilePath($className);
+        $fileName = '';
+
+        // determine file name from resolved namespace, or class name if necessary
+        if (($lastNsPos = strrpos($pathFromNamespace, DIRECTORY_SEPARATOR)) !== false) {
+            $fileName = substr($pathFromNamespace, $lastNsPos + 1);
+        } else {
+            $fileName = $className . '.php';
+        }
 
         // determine if class namespace is known to autoloader by filtering
         // out all namespaces which do not match ^$classname
@@ -170,26 +182,32 @@ class Autoloader
         }
 
         if ($nsIncludePathsAvailable) {
-            array_map(function ($path) use ($foundFile,$pathFromNamespace) {
-                $foundFile = 
-                    // lowercase normalized directory structure
+            array_map(function ($includePath) use ($foundFile,$pathFromNamespace,$fileName) {
+                $foundFile =
+                    // absolute path directly to namespaced files, normalized
+                    stream_resolve_include_path(reset($includePath) . DIRECTORY_SEPARATOR . strtolower($fileName))
+                    ?:
+                    // absolute path directly to namespaced files, verbatim
+                    stream_resolve_include_path(reset($includePath) . DIRECTORY_SEPARATOR . $fileName)
+                    ?:
+                    // autoload root relative include path, normalized
                     stream_resolve_include_path($this->autoloadRoot .
-                    DIRECTORY_SEPARATOR . reset($path) . DIRECTORY_SEPARATOR . strtolower($pathFromNamespace))
+                    DIRECTORY_SEPARATOR . reset($includePath) . DIRECTORY_SEPARATOR . strtolower($pathFromNamespace))
                     ?:
-                    // the namespace verbatim, resolved to filename
+                    // autoload root relative include path, verbatim
                     stream_resolve_include_path($this->autoloadRoot .
-                    DIRECTORY_SEPARATOR . reset($path) . DIRECTORY_SEPARATOR . $pathFromNamespace)
-                    // absolute path, verbatim
+                    DIRECTORY_SEPARATOR . reset($includePath) . DIRECTORY_SEPARATOR . $pathFromNamespace)
                     ?:
-                    stream_resolve_include_path(reset($path) . DIRECTORY_SEPARATOR . $pathFromNamespace)
-                    // absolute path normalized
+                    // absolute include path, with namespace resolved path appended, verbatim
+                    stream_resolve_include_path(reset($includePath) . DIRECTORY_SEPARATOR . $pathFromNamespace)
                     ?:
-                    stream_resolve_include_path(reset($path) . DIRECTORY_SEPARATOR . strtolower($pathFromNamespace));
+                    // absolute include path, with namespace resolved path appended, normalized
+                    stream_resolve_include_path(reset($includePath) . DIRECTORY_SEPARATOR . strtolower($pathFromNamespace));
                 if ($foundFile) return include $foundFile;
             },$nsIncludePathsAvailable);
             return $foundFile;
         } else { // if no paths are available, try root
-            $foundFile = 
+            $foundFile =
                 // normalized from root
                 stream_resolve_include_path($this->autoloadRoot . DIRECTORY_SEPARATOR .
                 strtolower($pathFromNamespace))
@@ -202,22 +220,22 @@ class Autoloader
     }
 
     /**
-     * Resolves file name to be appended to include path
+     * Resolves file path from namespace, to be appended to include path
      *
      * @param string $className Name of the class to load
      * @return string resolved file name
      */
-    private function convertNamespaceToPath($className)
+    private function resolveRelativeFilePath($className)
     {
-        $fileName = '';
+        $relativeFilePath = '';
         $namespace = '';
-        if (($lastNsPos = strripos($className, '\\')) !== false) {
+        if (($lastNsPos = strrpos($className, '\\')) !== false) {
             $namespace = substr($className, 0, $lastNsPos);
             $className = substr($className, $lastNsPos + 1);
-            $fileName  = strtr($namespace,['\\' => DIRECTORY_SEPARATOR]) . DIRECTORY_SEPARATOR;
+            $relativeFilePath = strtr($namespace,['\\' => DIRECTORY_SEPARATOR]) . DIRECTORY_SEPARATOR;
         }
-        $fileName .= strtr($className, ['_' => DIRECTORY_SEPARATOR]) . '.php';
+        $relativeFilePath .= strtr($className, ['_' => DIRECTORY_SEPARATOR]) . '.php';
 
-        return $fileName;
+        return $relativeFilePath;
     }
 }
