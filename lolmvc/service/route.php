@@ -41,8 +41,8 @@ class Route {
 	/**
 	 * Constructor
 	 *
-     * @param mixed $uri
-     * @param string $appName
+	 * @param mixed $uri
+	 * @param string $appName
 	 * @access public
 	 * @return void
 	 */
@@ -58,8 +58,8 @@ class Route {
 		$parsedURI = explode('/', $uri);
 
 		// grab requested controller name, if blank then use the default (if any)
-        $controller      = empty($parsedURI[0]) ? ucfirst(DEFAULT_CONTROLLER) : ucfirst($parsedURI[0]);
-        $controllerClass = "\\$appName\\Controller\\$controller";
+		$controller      = empty($parsedURI[0]) ? ucfirst(DEFAULT_CONTROLLER) : ucfirst($parsedURI[0]);
+	        $controllerClass = "\\$appName\\Controller\\$controller";
 
 		// get the action or ''
 		$action = isset($parsedURI[1]) ? $parsedURI[1] : '';
@@ -68,7 +68,7 @@ class Route {
 		// Check if the controller is valid
 		try {
 			if (class_exists($controllerClass))  {}
-        } catch (\LogicException $e) {
+		} catch (\LogicException $e) {
 			throw new PageNotFoundException("Controller class does not exist (".$e->getMessage().")");
 		}
 

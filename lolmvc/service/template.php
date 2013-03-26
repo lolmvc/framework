@@ -144,7 +144,7 @@ class Template implements \Lolmvc\View\BaseView {
 
 	/**
 	 * Renders and displays the HTML using the privided templates and the
-     * variables that have been added to the templating engine.
+         * variables that have been added to the templating engine.
 	 *
 	 * @access public
 	 * @return void

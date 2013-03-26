@@ -53,7 +53,7 @@ class App {
         $this->appName = ucfirst($appName);
 
        /**
-        * Initialize the built-in PHP class autoloader.
+        * Initialize PSR-0 PHP class autoloader.
         */
         require 'service/autoloader.php';
         $loader = new Service\Autoloader();
@@ -93,7 +93,8 @@ class App {
 
         // create the router, generate the page and display
         try {
-            $router = new \Lolmvc\Service\Route($_SERVER['REQUEST_URI'], $this->appName);
+            // using strtok as not all webservers support $_SERVER['REQUEST_URL'] and REQUEST_URI keeps query string
+            $router = new \Lolmvc\Service\Route(strtok($_SERVER['REQUEST_URL'], '?'), $this->appName);
 		} catch (\Lolmvc\Service\PageNotFoundException $e) {
 			// get the error404 classname
 			if (CUSTOM_404)
@@ -107,9 +108,6 @@ class App {
 				$request .= "/$message/";
             $router = new \Lolmvc\Service\Route($request, $error404namespace);
         }
-
-        $controller = $router->getController();
-        $controller->renderPage();
     }
 
     /**

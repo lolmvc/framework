@@ -34,5 +34,6 @@ abstract class SkelController extends \Lolmvc\Controller\BaseController {
 
         // execute the action
         $this->$action($args);
+        $this->renderPage();
     }
 }

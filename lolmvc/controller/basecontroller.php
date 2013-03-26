@@ -18,12 +18,12 @@ namespace Lolmvc\Controller;
  */
 abstract class BaseController {
 
-	/**
-	 * The model object providing API that accesses the Database.
-	 *
-	 * @var Lolmvc\Model\BaseModel
-	 * @access protected
-	 */
+    /**
+     * The model object providing API that accesses the Database.
+     *
+     * @var Lolmvc\Model\BaseModel
+     * @access protected
+     */
     protected $model;
 
     /**
@@ -33,46 +33,47 @@ abstract class BaseController {
      * @var Lolmvc\View\BaseView
      * @access protected
      */
-	protected $view;
+    protected $view;
 
-	/**
-	 * classShortName
-	 *
-	 * @var string
-	 * @access protected
-	 */
-	protected $classShortName;
+    /**
+     * classShortName
+     *
+     * @var string
+     * @access protected
+     */
+    protected $classShortName;
 
-	/**
-	 * Constructor
-	 *
+    /**
+     * Constructor
+     *
      * @access public
      * @param string $appName         The application name.
      * @param string $classShortName  The non-fully-qualified class name.
      * @return void
      *
-	 */
-	public function __construct($appName, $classShortName) {
+     */
+    public function __construct($appName) {
         // get the class name
         $className = explode('\\', strtolower(get_class($this)));
-		$this->classShortName = end($className);
+        $this->classShortName = end($className);
 
-		// get the model
-		$modelName = "\\$appName\\Model\\" . ucfirst($classShortName);
-		$this->model = new $modelName();
+	// get the model
+	//$modelName = "\\$appName\\Model\\" . ucfirst($classShortName);
+	//$this->model = new $modelName();
     }
 
-	/**
-	 * Renders and echoes the HTML
+    /**
+     * Renders and echoes the HTML
      *
      * @see \Lolmvc\View\BaseView
-	 * @access public
-	 * @return void
-	 */
+     * @access public
+     * @return void
+     */
     public function renderPage() {
-        if (empty($this->view))
-            trigger_error('The view was never set! See the documentation.', E_USER_ERROR);
+        if (empty($this->view)) {
+	    trigger_error('The view was never set! See the documentation.', E_USER_ERROR);
+	}
 
-		$this->view->renderPage();
+	$this->view->renderPage();
 	}
 }
