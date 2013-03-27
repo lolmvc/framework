@@ -16,15 +16,16 @@ namespace Lolmvc\Service;
  * Supports absolute paths to actual include files (Composer style)
  *
  *      // Example array of namespaces to pass to Autoloader
+ *      // NOTE: Trailing slash or no, we know what you mean.
  *      $namespaces = [
  *          ['Cool\\CoolLib' => 'library/coollib/src'],
- *          ['Neat\\NeatLib' => 'library/neatlib'],
+ *          ['Neat\\NeatLib' => 'library/neatlib/'],
  *          ['Awe\\AwesomeLib' => 'library/coollib/src'],
  *          ['Cool\\CoolLib' => 'library/coollib'],
  *          ['MattRWallace\\Exegesis' => 'vendor']
  *      ];
  *
- *      $loader = new Autoloader('/var/www/webroot/', $namespaces);
+ *      $loader = new Autoloader();
  *      $loader
  *          ->addNamespaces($namespaces)
  *          ->importComposerNamespaces()
