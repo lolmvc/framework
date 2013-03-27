@@ -32,6 +32,7 @@ namespace Lolmvc;
  * @author Mitzip <mitzip@lolmvc.com>
  * @author Matthew Wallace <matt@lolmvc.com>
  * @package Lolmvc
+ * @todo catch exception for missing config and present suggestion on fix
  */
 class App {
     /**
