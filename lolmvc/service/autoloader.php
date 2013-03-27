@@ -3,14 +3,30 @@ namespace Lolmvc\Service;
 
 /**
  * Autoloader implements the PHP Framework Interoperability Group's
- * PHP Standards Recommendation for autoloading classes.
+ * PHP Standards Recommendation for autoloading classes, but also adds
+ * functionality beyond the PSR to include flexible use of paths and
+ * importing namespaces from Composer.
  *
  * http://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
  *
- *      // Example which loads classes for the Exegesis annotation parser.
- *      $loader = new Autoloader();
+ * Features:
+ * Multiple include paths per namespace.
+ * Multiple namespaces per include path.
+ * Both absolute and relative to root paths.
+ * Supports absolute paths to actual include files (Composer style)
+ *
+ *      // Example array of namespaces to pass to Autoloader
+ *      $namespaces = [
+ *          ['Cool\\CoolLib' => 'library/coollib/src'],
+ *          ['Neat\\NeatLib' => 'library/neatlib'],
+ *          ['Awe\\AwesomeLib' => 'library/coollib/src'],
+ *          ['Cool\\CoolLib' => 'library/coollib'],
+ *          ['MattRWallace\\Exegesis' => 'vendor']
+ *      ];
+ *
+ *      $loader = new Autoloader('/var/www/webroot/', $namespaces);
  *      $loader
- *          ->addNamespaces([['MattRWallace\\Exegesis' => 'vendor']])
+ *          ->addNamespaces($namespaces)
  *          ->importComposerNamespaces()
  *          ->register();
  *
@@ -34,20 +50,6 @@ class Autoloader
     /**
      * Creates a new <tt>Autoloader</tt> that loads classes of the
      * specified namespace.
-     *
-     * Features:
-     * Multiple include paths per namespace.
-     * Multiple namespaces per include path.
-     * Both absolute and relative to root paths.
-     *
-     *      // Example array of namespaces to pass to Autoloader
-     *      $namespaces = [
-     *          ['Cool\\CoolLib' => 'library/coollib/src'],
-     *          ['Neat\\NeatLib' => 'library/neatlib'],
-     *          ['Awe\\AwesomeLib' => 'library/coollib/src'],
-     *          ['Cool\\CoolLib' => 'library/coollib'],
-     *          ['MattRWallace\\Exegesis' => 'vendor']
-     *      ];
      *
      * @param string root directory that all include paths are resolved against
      * @param array $namespaces The namespaces to load.
