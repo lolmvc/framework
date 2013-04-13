@@ -95,7 +95,8 @@ class App {
         // create the router, generate the page and display
         try {
             // using strtok as not all webservers support $_SERVER['REQUEST_URL'] and REQUEST_URI keeps query string
-            $router = new \Lolmvc\Service\Route(strtok($_SERVER['REQUEST_URL'], '?'), $this->appName);
+            $uri = strtok($_SERVER['REQUEST_URI'], '?') ?: $_SERVER['REQUEST_URI'];
+            $router = new \Lolmvc\Service\Route($uri, $this->appName);
 		} catch (\Lolmvc\Service\PageNotFoundException $e) {
 			// get the error404 classname
 			if (CUSTOM_404)
