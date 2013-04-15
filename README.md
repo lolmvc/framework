@@ -35,9 +35,9 @@ and follow the code below.
 	cd /var/www/
 
 	# get lolmvc
-	git clone git@github.com:lolmvc/framework.git example.com
+	git clone git@github.com:lolmvc/framework.git
 
-	cd example.com
+	cd framework
 
 	# install composer (if you don't already have it)
 	curl -s https://getcomposer.org/installer | php
@@ -52,3 +52,8 @@ and follow the code below.
 
 *For more information, please see the documentation under /doc.*
 
+### Finally
+
+Point your webserver to serve up the *webroot* directory under your app directory.
+
+You can run multiple apps under the same lolmvc install, which can all consume classes from both lolmvc and your other apps.
