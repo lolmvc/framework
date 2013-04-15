@@ -8,7 +8,6 @@ but could also make a nice base framework for a real app.
 
 *Friendly MIT Licensed*
 
-
 ## Quick Start
 
 ### Redhat Openshift (in development)
@@ -45,9 +44,6 @@ and follow the code below.
 
 	# run composer to install all lolmvc dependencies
 	php composer.phar install
-
-	# run tests (optional)
-	cd test && phpunit
 
 ### Then, create your app
 
