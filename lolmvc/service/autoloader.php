@@ -61,6 +61,10 @@ class Autoloader
     {
         $this->autoloadRoot = $root ?: '..' . DIRECTORY_SEPARATOR . '..';
         $this->namespaces = $this->trimPaths($namespaces);
+
+        // set framework root at front of include path for spl_autoload
+        set_include_path(stream_resolve_include_path($this->autoloadRoot) .
+            PATH_SEPARATOR . get_include_path());
     }
 
     /**
