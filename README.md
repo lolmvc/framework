@@ -8,17 +8,17 @@ Just shy of it's first release (1.0.0), though fully functional.
 
 ## Features
  - Super Fast
- - PHP-FIG PSR Compliant
+ - **PHP-FIG PSR Compliant**
  - Convention over Configuration
  - Sematic versioning
  - Implements MVC design pattern (fat model)
- - Annotation based URL routing (phpdoc tag style)
+ - **Annotation based URL routing (phpdoc tag style)**
  - Composer use is fully integrated (Composer aware autoloader)
  - Intuitive design, intended to be easy to wrap your mind around
  - Database agnostic (although we recommend MongoDB, if you need one)
  - Run multiple apps within the same framework under different *vhosts*
  - All about choices, choose your own DB, templating engine, etc.
- - Write your own *services* as traits or classes, shared across apps.
+ - **Write your own *services* as traits or classes, shared across apps.**
 
 ## Requirements 
  - A web-server (nginx recommended)
