@@ -1,14 +1,18 @@
 <?php
 
+namespace Skel\Controller;
+
 /**
- * The index of the Skel application.
+ * The front controller of the Skel application.
  *
  * @author Matthew Wallace <matt@lolmvc.com>
- * @package Skel\Webroot
+ * @author mitzip <mitzip@lolmvc.com>
+ * @package Skel
+ * @subpackage Controller
  */
 
 // have to include the basic app class
-require_once("../../lolmvc/app.php");
+require '../../lolmvc/app.php';
 
 /* ============================
  * create a new lolmvc based app

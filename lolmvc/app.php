@@ -15,7 +15,7 @@ namespace Lolmvc;
  *   // Include the file with the App class.
  *   // Once the App object is constructed all your classes can be found and
  *   //   included by the autoloader.
- *   require_once("../../lolmvc/app.php");
+ *   require_once '../../lolmvc/app.php';
  *
  *   // Create a new App with the name of the app.
  *   // The name of the app should be the same as the name of the folder and
@@ -41,7 +41,7 @@ class App {
      * @var string
      * @public
      */
-    public $name;
+    public $appName;
 
     /**
      * Constructor
@@ -51,7 +51,7 @@ class App {
      * @return void
      */
     function __construct($appName) {
-        $this->name = ucfirst($appName);
+        $this->appName = ucfirst($appName);
 
         // Register native PHP autoloader then
         // lolmvc autoloader.
@@ -75,8 +75,8 @@ class App {
      * @return void
      */
     public function useLocalConfig() {
-        $configClass = "\\$this->name\\Config";
-        new $configClass();
+        $appConfig = "\\$this->appName\\Config";
+        new $appConfig();
     }
 
     /**
@@ -94,13 +94,13 @@ class App {
         // create the router, generate the page and display
         try {
             // not all webservers support $_SERVER['REQUEST_URL']
-            $router = new \Lolmvc\Service\Route($_SERVER['REQUEST_URI'], $this->name);
+            $router = new \Lolmvc\Service\Route($_SERVER['REQUEST_URI'], $this->appName);
 		} catch (\Lolmvc\Service\PageNotFoundException $e) {
 			// get the error404 classname
 			if (CUSTOM_404)
-				$error404namespace = $this->name;
+				$error404namespace = $this->appName;
 			else
-                $error404namespace = "Lolmvc";
+                            $error404namespace = "Lolmvc";
 
             $request = "PageNotFound";
             $message = $e->getMessage();

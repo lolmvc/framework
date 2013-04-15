@@ -20,7 +20,7 @@ namespace Lolmvc\Controller;
 abstract class Base {
 
     /**
-     * Applicationi, using lolmvc framework, name.
+     * Name of application using lolmvc framework.
      *
      * Should be the app directory name.
      *
@@ -31,7 +31,7 @@ abstract class Base {
     /**
      * The model object providing API that accesses the Database.
      *
-     * @var Lolmvc\Model\BaseModel
+     * @var Lolmvc\Model\Base
      * @access protected
      */
     protected $model;
@@ -40,7 +40,7 @@ abstract class Base {
      * The view object that interfaces with the chosen view/templating
      * framework.
      *
-     * @var Lolmvc\View\BaseView
+     * @var Lolmvc\View\Base
      * @access protected
      */
     protected $view;
@@ -60,7 +60,7 @@ abstract class Base {
      *
      * Annotations class from router for this class.
      *
-     * @var object
+     * @var MattRWallace\Exegesis\Annotation
      * @access protected
      */
     protected $meta;

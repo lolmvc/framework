@@ -18,13 +18,14 @@ class Main extends \Lolmvc\Controller\Base {
    * Constructor
    *
    * @param string $appName
+   * @param object $meta Annotation Class
    * @param string $action
    * @param array $args
    * @access public
    * @return void
    */
-   public function __construct($appName, $annotations, $action, $args) {
-      parent::__construct($appName, $annotations, $action, $args);
+   public function __construct($appName, $meta, $action, $args) {
+      parent::__construct($appName, $meta, $action, $args);
    }
 
    /**

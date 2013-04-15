@@ -1,4 +1,5 @@
 <?php
+
 namespace Lolmvc\Service;
 
 /**
@@ -22,12 +23,12 @@ namespace Lolmvc\Service;
  *    if (CUSTOM_404)
  *       $error404namespace = $appname;
  *    else
- *       $error404namespace = "lolmvc";
+ *       $error404namespace = "Lolmvc";
  *
- *    $request = "error404";
+ *    $request = "PathNotFound";
  *    $message = $e->getMessage();
  *    if (!empty($message))
- *       $request .= "/$message/";
+ *       $request .= "/error/$message/";
  *    $router = new
  *    \Lolmvc\Service\Route($request, $error404namespace);
  * }
@@ -54,13 +55,13 @@ class Route {
 		$uri = strtok($uri, '?') ?: $uri;
 
 		// remove leading/trailing '/' and explode
-		$uri		= trim($uri, '/');
+		$uri = trim($uri, '/');
 
 		// parse URI into array, splitting on forward slash
-		$parsedURI	= explode('/', $uri);
+		$parsedURI = explode('/', $uri);
 
 		// grab requested controller name, if blank then use the default (if any)
-		$controllerName      = empty($parsedURI[0]) ? ucfirst(DEFAULT_CONTROLLER) : ucfirst($parsedURI[0]);
+		$controllerName = empty($parsedURI[0]) ? ucfirst(DEFAULT_CONTROLLER) : ucfirst($parsedURI[0]);
 	    $controllerFQCN = "\\$appName\\Controller\\$controllerName";
 
 		// Check early if the controller is valid

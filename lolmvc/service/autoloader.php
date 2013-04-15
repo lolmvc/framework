@@ -1,4 +1,5 @@
 <?php
+
 namespace Lolmvc\Service;
 
 /**
@@ -38,7 +39,8 @@ namespace Lolmvc\Service;
  * @author Kris Wallsmith <kris.wallsmith@gmail.com>
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  * @author Lissachenko Alexander <lisachenko.it@gmail.com>
- * @package Lolmvc\Service
+ * @package Lolmvc
+ * @subpackage Service
  * @todo Implement the ability to change the namespace seperator
  * @todo Make usage of addNamespaces more intuitive
  * @todo completely docu/comment and fix authors
@@ -141,10 +143,14 @@ class Autoloader
      */
     public function register()
     {
-        // added PHP default autoloader first
-        spl_autoload_register('spl_autoload');
+        // file extensions to look for
+        spl_autoload_extensions('.php');
 
-        return spl_autoload_register(array($this, 'findFile'));
+        // add PHP default autoloader first, to work around
+        // LogicException bug in PHP
+        spl_autoload_register('spl_autoload', false, true);
+
+        return spl_autoload_register(array($this, 'findFile'), false, false);
     }
 
     /**
