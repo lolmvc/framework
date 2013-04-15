@@ -47,7 +47,7 @@ and follow the code below.
 
 ### Then, create your app
 
-	# make your app directory
+	# make a copy of the *skeleton* app for your app directory
 	cp skel myapp
 
 *For more information, please see the documentation under /doc.*
