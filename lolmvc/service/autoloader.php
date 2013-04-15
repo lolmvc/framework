@@ -141,6 +141,9 @@ class Autoloader
      */
     public function register()
     {
+        // added PHP default autoloader first
+        spl_autoload_register('spl_autoload');
+
         return spl_autoload_register(array($this, 'findFile'));
     }
 
@@ -151,6 +154,8 @@ class Autoloader
      */
     public function unregister()
     {
+        spl_autoload_unregister('spl_autoload');
+
         return spl_autoload_unregister(array($this, 'findFile'));
     }
 

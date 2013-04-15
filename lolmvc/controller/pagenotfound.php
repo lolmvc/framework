@@ -7,10 +7,13 @@ namespace Lolmvc\Controller;
  *
  * @uses Controller
  * @author Matt Wallace <matt@lolmvc.com>
- * @package Lolmvc\Controller
+ * @author mitzip <mitzip@lolmvc.com>
+ * @package Lolmvc
+ * @subpackage Controller
  * @defaultAction error
+ * @nomodel
  */
-class Error404 extends BaseController {
+class PageNotFound extends Base {
     /**
      * Constructor
      *
@@ -20,17 +23,10 @@ class Error404 extends BaseController {
      * @access public
      * @return void
      */
-    public function __construct($appName, $action, $args) {
-        parent::__construct($appName);
+    public function __construct($appName, $annotationClass, $action, $args) {
+        parent::__construct($appName, $annotationClass, $action, $args);
 
-        // create the view
-        $this->view = new \Lolmvc\Service\Template($appName, $this->classShortName);
-        $this->view->layoutName = "main";
-
-        $this->controllerName = $this->classShortName;
-
-        $this->$action($args);
-    }
+   }
 
     /**
      * The only action for the Error404 controller.
@@ -45,8 +41,11 @@ class Error404 extends BaseController {
      * @args ["messages"]
      */
     public function error($args) {
+         // create the view
+        $this->view = new \Lolmvc\Service\Template($this->appName, $this->className);
+        $this->view->layoutName = "main";
         // set the view
-        $this->view->viewName = 'error404';
+        $this->view->viewName = 'pagenotfound';
         $this->view->title = 'Page Not Found';
 
         if (DEBUG && !empty($args))

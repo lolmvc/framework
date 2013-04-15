@@ -6,6 +6,12 @@
  * @author Matthew Wallace <matt@lolmvc.com>
  * @package Skel\Layout
  */
-
-echo $content;
-
+?>
+<html>
+<head>
+    <title><?=$title?></title>
+</head>
+<body>
+    <?=$content?>
+</body>
+</html>

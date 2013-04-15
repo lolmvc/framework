@@ -9,5 +9,5 @@ namespace Skel\Model;
  * @author Matt Wallace <matt@lolmvc.com>
  * @package Skel\Model
  */
-class Main extends SkelModel {
+class Main extends \Lolmvc\Model\Base {
 }

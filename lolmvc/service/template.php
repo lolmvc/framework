@@ -28,9 +28,10 @@ namespace Lolmvc\Service;
  *
  * Note: Original logic derived from Chad Emrys Minick's "Simple PHP template engine"
  *
- * @author	Matt Wallace <matt@lolmvc.com>
+ * @author  Matt Wallace <matt@lolmvc.com>
+ * @author  mitzip <mitzip@lolmvc.com>
  * @author  Chad Emrys Minick
- * @link http://codeangel.org/articles/simple-php-template-engine.html
+ * @link    http://codeangel.org/articles/simple-php-template-engine.html
  * @package Lolmvc\Service
  */
 class Template implements \Lolmvc\View\BaseView {
@@ -164,7 +165,7 @@ class Template implements \Lolmvc\View\BaseView {
 
         // Run through the view
         ob_start();
-        include(lcfirst($this->appName)."/view/$this->controllerName/$this->viewName.php");
+        include(lcfirst($this->appName)."/view/".strtolower($this->controllerName)."/".$this->viewName.".php");
         $content = ob_get_clean();
 
         // Wrap with the layout

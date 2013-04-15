@@ -33,9 +33,11 @@ namespace Lolmvc\Service;
  * }
  * </code>
  *
- * @author  Mitzip <mitzip@lolmvc.com>
  * @author  Matthew Wallace <matt@lolmvc.com>
- * @package Lolmvc\Service
+ * @author  Mitzip <mitzip@lolmvc.com>
+ * @package Lolmvc
+ * @subpackage Service
+ * @todo re-evaluate usage of error pages
  */
 class Route {
 	/**
@@ -48,81 +50,65 @@ class Route {
 	 */
 	public function __construct($uri, $appName) {
 
-		/* =============================
-		 *  Find the correct controller
-		 * ============================= */
+		// remove any query string from URI
+		$uri = strtok($uri, '?') ?: $uri;
 
 		// remove leading/trailing '/' and explode
-		$uri = preg_replace('/^\//', '', $uri);
-		$uri = preg_replace('/\/$/', '', $uri);
-		$parsedURI = explode('/', $uri);
+		$uri		= trim($uri, '/');
+
+		// parse URI into array, splitting on forward slash
+		$parsedURI	= explode('/', $uri);
 
 		// grab requested controller name, if blank then use the default (if any)
-		$controller      = empty($parsedURI[0]) ? ucfirst(DEFAULT_CONTROLLER) : ucfirst($parsedURI[0]);
-	    $controllerClass = "\\$appName\\Controller\\$controller";
+		$controllerName      = empty($parsedURI[0]) ? ucfirst(DEFAULT_CONTROLLER) : ucfirst($parsedURI[0]);
+	    $controllerFQCN = "\\$appName\\Controller\\$controllerName";
 
-		// get the action or ''
-		$action = isset($parsedURI[1]) ? $parsedURI[1] : '';
-		$args   = '';
-
-		// Check if the controller is valid
-		try {
-			if (class_exists($controllerClass))  {}
-		} catch (\LogicException $e) {
-			throw new PageNotFoundException("Controller class does not exist (".$e->getMessage().")");
+		// Check early if the controller is valid
+		if (!class_exists($controllerFQCN)) {
+			throw new PageNotFoundException("Controller class does not exist.");
 		}
-
-
-		/* =============================================
-		 *  Get controller info and validate the action
-		 * ============================================= */
-
 		// set the parser to ignore phpdoc annotations
-		\MattRWallace\Exegesis\AnnotationParser::setBlacklist(\MattRWallace\Exegesis\AnnotationParser::PHPDOC);
+		\MattRWallace\Exegesis\AnnotationParser::setBlacklist(
+			\MattRWallace\Exegesis\AnnotationParser::PHPDOC);
 
 		// create the AnnotationClass for the controller and get the actions
-		$annotationClass = new \MattRWallace\Exegesis\AnnotationClass($controllerClass);
-		$actions = $this->getActions($annotationClass);
+		$annotationClass = new \MattRWallace\Exegesis\AnnotationClass($controllerFQCN);
 
-		// if the action is in the list then set its name and get args
-		foreach ($actions as $anAction)
-			if ($anAction->getName() == $action) {
-				$action = $anAction;
-				$args   = array_slice($parsedURI, 2);
-				break;
+		// set action if there are any in URI
+		if (isset($parsedURI[1])) {
+			$action = $parsedURI[1];
+
+			$actionsFromAnnotation = $this->getActions($annotationClass);
+
+			// if the action is in the list then set its name and get args
+			foreach ($actionsFromAnnotation as $annotationAction) {
+				if ($annotationAction->getName() == $action) {
+					$action = $annotationAction;
+					$args   = array_slice($parsedURI, 2);
+					break;
+				}
 			}
-
-		// otherwise check for a default
-		if (is_string($action) && $annotationClass->hasAnnotation('@defaultAction')) {
+		}
+	    // if no action passed to router, check for default action
+		else if ($annotationClass->hasAnnotation('@defaultAction')) {
 			$action = $this->getDefaultAction($annotationClass);
 			$args   = array_slice($parsedURI, 1);
 		}
 
-		// Invalid action and no default, switch to Error404
-		//if (is_string($action)) {
+		// invalid action passed to router
 		if (!is_object($action)) {
 			throw new PageNotFoundException("Invalid action with no default");
 		}
 
-
-		/* =====================
-		 *  Map names to values
-		 * ===================== */
-
-		$parameters = null;
-
-		// get the argument lists
-		$argLists = $action->getAnnotationValue('@args');
-
-		// if there are no argument lists then bail
-		if (!isset($argLists)) {
+		// if no args were specified by action method, no way to route
+		if (!($argLists = $action->getAnnotationValue('@args'))) {
 			throw new PageNotFoundException("No argument lists specified");
 		}
 
+		// iterate through argument lists trying to find a match to args passed
 		foreach ($argLists as $arglist) {
-			if (count($arglist) == count($args) ||
-				(count($arglist) < count($args) && in_array(null, $arglist))
-			) {
+			if ((count($arglist) < count($args) && in_array(null, $arglist)) ||
+				count($arglist) == count($args)) {
 				// check for empty list
 				if (empty($args))
 					$parameters = [];
@@ -137,18 +123,15 @@ class Route {
 			}
 		}
 
-		// no match
-		if (!is_array($parameters)) {
+		// no arguments passed to router, throw back a 404
+		if (!isset($parameters)) {
 			throw new PageNotFoundException("No argument lists matched the provided arguments");
 		}
 
 
-		/* =======================
-		 *  Create the controller
-		 * ======================= */
-
+		// finally attempt to create the controller
 		try {
-			new $controllerClass($appName, $action->getName(), $parameters);
+			new $controllerFQCN($appName, $annotationClass, $action->getName(), $parameters);
 		} catch (PageNotFoundException $e) {
 			throw new PageNotFoundException("Failed to create the controller (".$e->getMessage().")");
 		}
@@ -160,7 +143,7 @@ class Route {
      * @param AnnotationClass $annotationClass
      * @access private
      * @see \MattRWallace\Exegesis\AnnotationClass
-     * @return void
+     * @return Array $actions
      */
 	private function getActions($annotationClass) {
 		// Get a list of public methods and determine which are actions

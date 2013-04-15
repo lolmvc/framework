@@ -38,10 +38,10 @@ class App {
     /**
      * The name of the app, should be the same as the app's namespace
      *
-     * @var
-     * @private
+     * @var string
+     * @public
      */
-    private $appName;
+    public $name;
 
     /**
      * Constructor
@@ -51,11 +51,10 @@ class App {
      * @return void
      */
     function __construct($appName) {
-        $this->appName = ucfirst($appName);
+        $this->name = ucfirst($appName);
 
-       /**
-        * Initialize PSR-0 PHP class autoloader.
-        */
+        // Register native PHP autoloader then
+        // lolmvc autoloader.
         require 'service/autoloader.php';
         $loader = new Service\Autoloader();
         $loader
@@ -76,7 +75,7 @@ class App {
      * @return void
      */
     public function useLocalConfig() {
-        $configClass = "\\$this->appName\\Config";
+        $configClass = "\\$this->name\\Config";
         new $configClass();
     }
 
@@ -94,20 +93,20 @@ class App {
 
         // create the router, generate the page and display
         try {
-            // using strtok as not all webservers support $_SERVER['REQUEST_URL'] and REQUEST_URI keeps query string
-            $uri = strtok($_SERVER['REQUEST_URI'], '?') ?: $_SERVER['REQUEST_URI'];
-            $router = new \Lolmvc\Service\Route($uri, $this->appName);
+            // not all webservers support $_SERVER['REQUEST_URL']
+            $router = new \Lolmvc\Service\Route($_SERVER['REQUEST_URI'], $this->name);
 		} catch (\Lolmvc\Service\PageNotFoundException $e) {
 			// get the error404 classname
 			if (CUSTOM_404)
-				$error404namespace = $appname;
+				$error404namespace = $this->name;
 			else
-                $error404namespace = "lolmvc";
+                $error404namespace = "Lolmvc";
 
-            $request = "error404";
+            $request = "PageNotFound";
             $message = $e->getMessage();
             if (!empty($message))
-				$request .= "/$message/";
+                $request .= "/error/$message/";
+
             $router = new \Lolmvc\Service\Route($request, $error404namespace);
         }
     }
