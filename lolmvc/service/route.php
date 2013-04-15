@@ -97,7 +97,7 @@ class Route {
 
 		// invalid action passed to router
 		if (!is_object($action)) {
-			throw new PageNotFoundException("Invalid action with no default");
+			throw new PageNotFoundException("Invalid action");
 		}
 
 		// if no args were specified by action method, no way to route
