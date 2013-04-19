@@ -28,6 +28,42 @@ Just shy of it's first release (1.0.0), though fully functional.
 Friendly MIT Licensed
 
 ## Quick Start
+### Overview
+
+#### Directory Structure
+www
+ |-framework
+	|- lolmvc
+	|	|- model		(abstract models and model interfaces)
+	|	|- view			(default views like json, etc)
+	|	|- controller	(abstract controller and controller interfaces)
+	|	|- service		(bundled services, aka helpers or plugins)
+	|
+	|- myapp			(your app name/directory correlates to your app's namespace)
+	|	|- models		(model classes for your controllers)
+	|	|- view			(your views)
+	|	|- controllers	(your controllers)
+	|	|- service		(your own services, aka helpers or plugins)
+	|	|- webroot		(myapp.example.com webserver points to this directory)
+	|
+	|- vendor			(composer installed dependencies)
+
+#### How to start your app
+All apps have what is called a front controller. In an lolmvc app, 
+that is the index.php file in your app's webroot directory. Here is
+an example index.php from myapp/webroot using the directory structure above.
+
+	<?php
+	namespace 'Myapp\Controller';
+
+	require '../../lolmvc/app.php';
+	$app = new \Lolmvc\App('myapp');
+
+	// use app level config
+	// $app->useLocalConfig();
+
+	$app->run();
+
 ### Redhat Openshift (in development)
 First, head on over to <http://openshift.redhat.com> and create
 an account. Then install the client tools:
