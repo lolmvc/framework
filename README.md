@@ -42,9 +42,9 @@ www
 	|	|- service		(bundled services, aka helpers or plugins)
 	|
 	|- myapp			(your app name/directory correlates to your app's namespace)
-	|	|- models		(model classes for your controllers)
+	|	|- model		(model classes for your controllers)
 	|	|- view			(your views)
-	|	|- controllers	(your controllers)
+	|	|- controller	(your controllers)
 	|	|- service		(your own services, aka helpers or plugins)
 	|	|- webroot		(myapp.example.com webserver points to this directory)
 	|
