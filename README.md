@@ -31,6 +31,8 @@ Friendly MIT Licensed
 ### Overview
 
 #### Directory Structure
+
+<pre>
 www
  |-framework
 	|- lolmvc
@@ -47,6 +49,7 @@ www
 	|	|- webroot		(myapp.example.com webserver points to this directory)
 	|
 	|- vendor			(composer installed dependencies)
+</pre>
 
 #### How to start your app
 All apps have what is called a front controller. In an lolmvc app, 
