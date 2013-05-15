@@ -2,7 +2,7 @@
 namespace Lolmvc;
 
 /**
- * Each application is able to create its front controller easily creating an App object which can then be "run".
+ * Each application is able to create its front controller easily by creating an App object which can then be "run".
  *
  * The root namespace of the application must be passed or the router will not be able to find your application specific code.
  *
